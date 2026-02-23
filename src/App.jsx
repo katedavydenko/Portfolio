@@ -1,55 +1,51 @@
-import { students } from './data';
-import styles from './App.module.css'; // Припустимо, що ви створили контейнер для стрічки
+import { useState } from 'react';
+import { postsData } from './data2';
+import Post from './components/molecules/Post/Post';
+import SearchBar from './components/molecules/SearchBar/SearchBar';
+import styles from './App.module.css';
 
 function App() {
-  const getAverage = (grades) => grades.reduce((a, b) => a + b, 0) / grades.length;
-  const totalAverage = students.reduce((acc, student) => {
-    return acc + getAverage(student.grades);
-  }, 0) / students.length;
-  const sortedStudents = [...students].sort((a, b) => {
-  const avgA = a.grades.reduce((sum, g) => sum + g, 0) / a.grades.length;
-  const avgB = b.grades.reduce((sum, g) => sum + g, 0) / b.grades.length;
-  return avgB - avgA; 
-});
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  // Логіка фільтрації
+  const filteredPosts = postsData.filter(post => {
+    const matchesSearch =
+      post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.author.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory =
+      activeCategory === 'All' || post.category === activeCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <div className={styles.appContainer}>
-      
+      <h1>Стрічка з фільтрацією</h1>
+
+      <SearchBar
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+      />
+
+      <div className={styles.filters}>
+        {['All', 'News', 'Updates'].map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={activeCategory === cat ? styles.active : ''}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
       <div className={styles.feed}>
-        {students.map((student) => (
-          <li key={student.id} style={{ marginBottom: '10px' }}>
-            <strong>{student.name}</strong> — {student.faculty} 
-          
-          </li>
-        ))}
-        
-      </div>
-      <div>
-          {students
-            .filter((student) => getAverage(student.grades) > 60)
-            .map((student) => (
-              <li key={student.id} style={{ color: 'green' }}>
-                <strong>{student.name}</strong> — Бал: {getAverage(student.grades).toFixed(1)}
-              </li>
-            ))}
-      </div>
-      <p >Середній бал усіх студентів: {totalAverage.toFixed(2)} </p>
-        <div>
-        {sortedStudents.map((student) => (
-          <li key={student.id} style={{ marginBottom: '8px' }}>
-            {/* Використовуємо тернарний оператор для стилів */}
-            <span style={{
-              color: student.scholarship ? 'black' : 'gray',
-              textDecoration: student.scholarship ? 'none' : 'line-through',
-              fontWeight: student.scholarship ? 'bold' : 'normal'
-            }}>
-              {student.name}
-            </span> 
-            {' — '} 
-            <span>
-              Середній бал: {(student.grades.reduce((a, b) => a + b, 0) / student.grades.length).toFixed(1)}
-            </span>
-          </li>
-        ))}
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map(post => <Post key={post.id} {...post} />)
+        ) : (
+          <p className={styles.empty}>Нічого не знайдено за вашим запитом.</p>
+        )}
       </div>
     </div>
   );

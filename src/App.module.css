@@ -1,0 +1,28 @@
+.appContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.filters button {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.active {
+  background-color:  rgb(139, 0, 173) !important;
+  color: rgb(255, 255, 255);
+  border-color: rgb(139, 0, 173);
+}
