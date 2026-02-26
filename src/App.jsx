@@ -1,51 +1,32 @@
 import { useState } from 'react';
-import { postsData } from './data2';
-import Post from './components/molecules/Post/Post';
-import SearchBar from './components/molecules/SearchBar/SearchBar';
+import StudentList from './StudentList';
+import StatisticsData from './StatisticsData';
+import AboutAuthor from './AboutAuthor';
 import styles from './App.module.css';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
-
-  // Логіка фільтрації
-  const filteredPosts = postsData.filter(post => {
-    const matchesSearch =
-      post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.author.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory =
-      activeCategory === 'All' || post.category === activeCategory;
-
-    return matchesSearch && matchesCategory;
-  });
+  const [activeTab, setActiveTab] = useState('list');
 
   return (
     <div className={styles.appContainer}>
-      <h1>Стрічка з фільтрацією</h1>
-
-      <SearchBar
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-      />
-
       <div className={styles.filters}>
-        {['All', 'News', 'Updates'].map(cat => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={activeCategory === cat ? styles.active : ''}
-          >
-            {cat}
-          </button>
-        ))}
+        <button onClick={() => setActiveTab('list')}>
+          Student List
+        </button>
+
+        <button onClick={() => setActiveTab('stats')}>
+          Statistics
+        </button>
+
+        <button onClick={() => setActiveTab('about')}>
+          About Author
+        </button>
       </div>
 
-      <div className={styles.feed}>
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map(post => <Post key={post.id} {...post} />)
-        ) : (
-          <p className={styles.empty}>Нічого не знайдено за вашим запитом.</p>
-        )}
+      <div className={styles.content}>
+        {activeTab === 'list' && <StudentList />}
+        {activeTab === 'stats' && <StatisticsData />}
+        {activeTab === 'about' && <AboutAuthor />}
       </div>
     </div>
   );
