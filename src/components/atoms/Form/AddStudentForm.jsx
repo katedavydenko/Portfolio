@@ -51,7 +51,7 @@ function AddStudentForm({ onAddStudent }) {
       onAddStudent({
         id: Date.now(),
         name: formData.name.trim(),
-        faculty: 'Невідомо',
+        faculty: 'IT',
         grades: [Number(formData.score)],
         scholarship: false
       });
