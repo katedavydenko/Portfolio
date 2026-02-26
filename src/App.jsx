@@ -10,15 +10,15 @@ function App() {
   return (
     <div className={styles.appContainer}>
       <div className={styles.filters}>
-        <button onClick={() => setActiveTab('list')}>
+        <button onClick={() => setActiveTab('list')} className={activeTab === 'list' ? styles.active : ''}>
           Student List
         </button>
 
-        <button onClick={() => setActiveTab('stats')}>
+        <button onClick={() => setActiveTab('stats')} className={activeTab === 'stats' ? styles.active : ''}>
           Statistics
         </button>
 
-        <button onClick={() => setActiveTab('about')}>
+        <button onClick={() => setActiveTab('about')}className={activeTab === 'about' ? styles.active : ''}>
           About Author
         </button>
       </div>
