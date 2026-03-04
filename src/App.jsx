@@ -1,37 +1,27 @@
-import { useState } from 'react';
-import StudentList from './StudentList';
-import StatisticsData from './StatisticsData';
-import AboutAuthor from './AboutAuthor';
-import styles from './App.module.css';
-
-
+import { Routes, Route } from 'react-router-dom';
+import MainLayout from './components/templates/MainLayout/MainLayout';
+import Home from './components/pages/Home/Home';
+import Feed from './components/pages/Feed/Feed';
+import PostPage from './components/pages/PostPage/PostPage';
+import Profile from './components/pages/Profile/Profile'
+import NotFound from './components/pages/NotFound/NotFound';
+import ProfileSettings from './components/pages/Profile/ProfileSettings';
+import ProfileOverview from './components/pages/Profile/ProfileOverview';
 function App() {
-  const [activeTab, setActiveTab] = useState('list');
-  
-  
   return (
-    <div className={styles.appContainer}>
-      <div className={styles.filters}>
-        <button onClick={() => setActiveTab('list')} className={activeTab === 'list' ? styles.active : ''}>
-          Student List
-        </button>
-
-        <button onClick={() => setActiveTab('stats')} className={activeTab === 'stats' ? styles.active : ''}>
-          Statistics
-        </button>
-
-        <button onClick={() => setActiveTab('about')}className={activeTab === 'about' ? styles.active : ''}>
-          About Author
-        </button>
-      </div>
-      
-      <div className={styles.content}>
-        {activeTab === 'list' && <StudentList />}
-        {activeTab === 'stats' && <StatisticsData />}
-        {activeTab === 'about' && <AboutAuthor />}
-      </div>
-    </div>
+  <Routes>
+    <Route path="/" element={<MainLayout />}>
+      <Route index element={<Home />} />
+      <Route path="feed" element={<Feed />} />
+      <Route path="feed/:id" element={<PostPage />} />
+      <Route path="profile" element={<Profile />}>
+          <Route index element={<ProfileOverview />} />
+          <Route path="settings" element={<ProfileSettings />} />
+        </Route>
+      <Route path="*" element={<NotFound />} />
+  
+      </Route>
+  </Routes>
   );
 }
-
 export default App;

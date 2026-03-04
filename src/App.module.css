@@ -10,7 +10,17 @@
   gap: 12px;
   margin: 20px 0;
 }
-
+.link {
+  padding: 8px 16px;
+  font-size: 14px;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  color :rgb(0, 0, 0);
+  text-decoration: none;
+}
 .filters button {
   padding: 8px 16px;
   font-size: 14px;
@@ -19,6 +29,8 @@
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  color :rgb(0, 0, 0);
+  text-decoration: none;
 }
 
 .active {
