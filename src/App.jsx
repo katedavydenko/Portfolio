@@ -7,6 +7,10 @@ import Profile from './components/pages/Profile/Profile'
 import NotFound from './components/pages/NotFound/NotFound';
 import ProfileSettings from './components/pages/Profile/ProfileSettings';
 import ProfileOverview from './components/pages/Profile/ProfileOverview';
+import Login from './components/pages/Login/Login';
+import Register from './components/pages/Register/Register';
+import ProtectedRoute from "./components/hoc/ProtectedRoute";
+
 function App() {
   return (
   <Routes>
@@ -14,12 +18,15 @@ function App() {
       <Route index element={<Home />} />
       <Route path="feed" element={<Feed />} />
       <Route path="feed/:id" element={<PostPage />} />
-      <Route path="profile" element={<Profile />}>
+      <Route path="login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="*" element={<NotFound />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="profile" element={<Profile />}>
           <Route index element={<ProfileOverview />} />
           <Route path="settings" element={<ProfileSettings />} />
         </Route>
-      <Route path="*" element={<NotFound />} />
-  
+      </Route>
       </Route>
   </Routes>
   );

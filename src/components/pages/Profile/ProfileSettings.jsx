@@ -1,5 +1,7 @@
 import { useState } from 'react';
-
+import styles from '../../../App.module.css'
+import Input from '../../atoms/Input/Input';
+import Button from '../../atoms/Button/Button';
 const ProfileSettings = () => {
   const [formData, setFormData] = useState({
     name: 'Kate Davydenko',
@@ -22,42 +24,33 @@ const ProfileSettings = () => {
   };
 
   return (
-    <div>
-      <h2>Налаштування профілю</h2>
+    <div className={styles.container}>
 
-      <form onSubmit={handleSubmit} >
-        <label>
-          Ім’я
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </label>
+      <form className={styles.box} onSubmit={handleSubmit} >
+        
+        <Input
+          type="text"
+          label="Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
 
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </label>
+        <Input
+          type="email"
+          label="Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
 
-        <label>
-          Новий пароль
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Введіть новий пароль"
-          />
-        </label>
+        <Input
+          type="password"
+          label="New Password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="Введіть новий пароль"
+        />
 
-        <button type="submit">Зберегти зміни</button>
+        <Button type="submit">Зберегти зміни</Button>
       </form>
     </div>
   );
