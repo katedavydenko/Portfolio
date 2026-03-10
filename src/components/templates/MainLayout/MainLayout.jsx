@@ -7,11 +7,11 @@ const MainLayout = () => {
         <div>
         <header>
             <div className= {styles.filters}>
-                <NavLink to="/" className={getActiveClass}>Головна</NavLink>
+                <NavLink to="/" className={getActiveClass}>MAIN</NavLink>
                 <NavLink to="/feed"
-                className={getActiveClass}>Стрічка</NavLink>
+                className={getActiveClass}>FEED</NavLink>
                 <NavLink to="/profile"
-                className={getActiveClass}>Профіль</NavLink>
+                className={getActiveClass}>PROFILE</NavLink>
             </div>
         </header>
         <main className={styles.mainContent}>

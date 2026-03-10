@@ -71,3 +71,19 @@ h1 {
 h3 {
   margin: 0;
 }
+.product{
+  display: flex;
+  flex-direction: column;
+  width: 350px ;
+  align-items: center ;
+  text-align: center;
+
+  padding: 10px ;
+  
+}
+.productInfo{
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  gap : 10px;
+}

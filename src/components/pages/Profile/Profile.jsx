@@ -9,9 +9,9 @@ const Profile = () => {
         <div>
            
             <div className={styles.filters}>
-                 <h3>Мій акаунт</h3>
-                <NavLink to="." end className={getActiveClass}>Інформація</NavLink>
-                <NavLink to="settings" className={getActiveClass}>Налаштування</NavLink>
+                 <h3>MY ACCOUNT</h3>
+                <NavLink to="." end className={getActiveClass}>iNFO</NavLink>
+                <NavLink to="settings" className={getActiveClass}>sETTINGS</NavLink>
             </div>
             <div>
                 <Outlet/>
