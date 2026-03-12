@@ -27,4 +27,5 @@ const Post = ({ id, author, content, date, avatar }) => {
   );
 };
 
+
 export default Post;

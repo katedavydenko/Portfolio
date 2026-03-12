@@ -8,6 +8,8 @@ const MainLayout = () => {
         <header>
             <div className= {styles.filters}>
                 <NavLink to="/" className={getActiveClass}>MAIN</NavLink>
+                <NavLink to="/news"
+                className={getActiveClass}>NEWS</NavLink>
                 <NavLink to="/feed"
                 className={getActiveClass}>FEED</NavLink>
                 <NavLink to="/profile"

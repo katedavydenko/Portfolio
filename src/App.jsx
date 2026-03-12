@@ -10,6 +10,7 @@ import ProfileOverview from './components/pages/Profile/ProfileOverview';
 import Login from './components/pages/Login/Login';
 import Register from './components/pages/Register/Register';
 import ProtectedRoute from "./components/hoc/ProtectedRoute";
+import NewsFeed from "./components/pages/NewsFeed/NewsFeed";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
     <Route path="/" element={<MainLayout />}>
       <Route index element={<Home />} />
       <Route path="feed" element={<Feed />} />
+      <Route path="news" element={<NewsFeed />} />
       <Route path="feed/:id" element={<PostPage />} />
       <Route path="login" element={<Login />} />
       <Route path="/register" element={<Register />} />
