@@ -3,8 +3,14 @@ import styles from '../../../App.module.css';
 import React, { useState } from "react";
 import ProductDetails from "../../product/ProductDetails";
 import ProductActions from "../../product/ProductActions";
-const Home = () => {
 
+import useLocalStorage from "../../../hooks/useLocalStorage";
+const Home = () => {
+const [theme, setTheme] = useLocalStorage("theme", "light");
+
+  const toggleTheme = () => {
+    setTheme(prev => (prev === "light" ? "dark" : "light"));
+  };
   const [quantity, setQuantity] = useState(1);
 
   const product = {
@@ -19,7 +25,11 @@ const Home = () => {
   };
 
   return (
-    <div className={`${styles.product} ${styles.login}`}>
+    <div>
+      <button className={styles.link} onClick={toggleTheme}>
+        Switch to {theme === "light" ? "dark" : "light"}
+      </button>
+    <div className={`${styles[theme]} ${styles.product} ${styles.login}`}>
       <ProductDetails
         image={product.image}
         title={product.title}
@@ -32,6 +42,7 @@ const Home = () => {
         setQuantity={setQuantity}
         onBuy={handleBuy}
       />
+    </div>
     </div>
   );
 };

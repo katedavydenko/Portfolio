@@ -3,8 +3,10 @@ import styles from '../../../App.module.css';
 const MainLayout = () => {
     const getActiveClass = ({ isActive }) =>
         isActive? `${styles.link} ${styles.active}` : styles.link;
+    
     return (
         <div>
+             
         <header>
             <div className= {styles.filters}>
                 <NavLink to="/" className={getActiveClass}>MAIN</NavLink>

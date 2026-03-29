@@ -19,6 +19,7 @@ function Feed() {
     return matchesSearch && matchesCategory;
   });
 
+  
   return (
     <div className={styles.appContainer}>
       <h1>Стрічка з фільтрацією</h1>
