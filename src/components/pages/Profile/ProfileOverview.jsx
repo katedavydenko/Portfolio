@@ -22,7 +22,6 @@ const ProfileOverview = () => {
   const [userData, setUserData] = useState(null);
   const [activities, setActivities] = useState([]);
   useEffect(() => {
-    // В реальному житті тут був би fetch() або axios
     setUserData({
       name: "kate davydenko",
       email: "coolafuser69@mail.com",

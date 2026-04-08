@@ -1,5 +1,4 @@
 import { useFetch } from "../../../hooks/useFetch";
-// Імпортуйте ваш компонент картки з попередніх робіт
 import NewsPost from '../../molecules/Post/NewsPost';
 
 const NewsFeed = () => {

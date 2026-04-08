@@ -1,25 +1,32 @@
-import { useState } from 'react';
-import { postsData } from '../../../data2'
+import { useState, useEffect } from 'react';
+import { postsData } from '../../../data2';
 import Post from '../../molecules/Post/Post';
-import SearchBar from '../..//molecules/SearchBar/SearchBar';
+import SearchBar from '../../molecules/SearchBar/SearchBar';
 import styles from '../../../App.module.css';
+import { useStore } from '../../../store/useStore.js';
 
 function Feed() {
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
-  // Логіка фільтрації
-  const filteredPosts = postsData.filter(post => {
+  const posts = useStore((state) => state.posts); 
+  const setPosts = useStore((state) => state.setPosts);
+
+  useEffect(() => {
+    setPosts(postsData);
+  }, [setPosts]);
+
+  const filteredPosts = posts.filter((post) => { 
     const matchesSearch =
       post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesCategory =
       activeCategory === 'All' || post.category === activeCategory;
 
     return matchesSearch && matchesCategory;
   });
 
-  
   return (
     <div className={styles.appContainer}>
       <h1>Стрічка з фільтрацією</h1>
@@ -30,7 +37,7 @@ function Feed() {
       />
 
       <div className={styles.filters}>
-        {['All', 'News', 'Updates'].map(cat => (
+        {['All', 'News', 'Updates'].map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
@@ -39,17 +46,21 @@ function Feed() {
             {cat}
           </button>
         ))}
-   </div>
+      </div>
 
       <div className={styles.feed}>
         {filteredPosts.length > 0 ? (
-          filteredPosts.map(post => <Post key={post.id} {...post} />)
+          filteredPosts.map((post) => (
+            <Post key={post.id} {...post} />
+          ))
         ) : (
-          <p className={styles.empty}>Нічого не знайдено за вашим запитом.</p>
+          <p className={styles.empty}>
+            Нічого не знайдено за вашим запитом.
+          </p>
         )}
-     </div>
+      </div>
     </div>
   );
 }
-export default Feed;
 
+export default Feed;
