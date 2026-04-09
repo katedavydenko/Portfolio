@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/AuthContext"; // Імпорт Прова
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter basename="/React_Project/">
+    <BrowserRouter basename="/Portfolio/">
       <AuthProvider>
         <App />
       </AuthProvider>
