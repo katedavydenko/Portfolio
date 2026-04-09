@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://katedavydenko.github.io/React_Project/",
+  "homepage": "https://katedavydenko.github.io/Portfolio/",
   "scripts": {
     "dev": "vite",
     "predeploy": "npm run build",
@@ -17,8 +17,7 @@
     "axios": "^1.13.6",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router-dom": "^7.13.1",
-    "zustand": "^5.0.12"
+    "react-router-dom": "^7.13.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

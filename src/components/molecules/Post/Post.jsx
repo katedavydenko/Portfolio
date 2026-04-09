@@ -2,17 +2,16 @@ import Button from '../../atoms/Button/Button';
 import Card from '../Card/Card';
 import styles from './Post.module.css';
 import { Link } from 'react-router-dom';
-import { useStore } from '../../../store/useStore';
 
 const Post = ({ id, author, content, date, avatar }) => {
-  const likes = useStore(
-    (state) => state.posts.find((post) => post.id === id)?.likes || 0
-  );
+   const [likes, setLikes] = useState(0);
 
-  const likePost = useStore((state) => state.likePost);
+
+
+
 
   const handleLike = () => {
-    likePost(id);
+    setLikes(likes + 1);
   };
 
   return (
@@ -30,9 +29,7 @@ const Post = ({ id, author, content, date, avatar }) => {
       <p className={styles.content}>{content}</p>
 
       <div className={styles.actions}>
-        <Button variant="secondary" onClick={handleLike}>
-          LIKE ({likes})
-        </Button>
+        <Button variant="secondary" onClick={handleLike}>LIKE ({likes})</Button>
         <Button variant="primary">COMMENT</Button>
       </div>
     </Card>

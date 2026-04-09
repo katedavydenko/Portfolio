@@ -3,20 +3,19 @@ import { postsData } from '../../../data2';
 import Post from '../../molecules/Post/Post';
 import SearchBar from '../../molecules/SearchBar/SearchBar';
 import styles from '../../../App.module.css';
-import { useStore } from '../../../store/useStore.js';
 
 function Feed() {
-  const [searchTerm, setSearchTerm] = useState('');
+   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const posts = useStore((state) => state.posts); 
-  const setPosts = useStore((state) => state.setPosts);
+  // Логіка фільтрації
+  const filteredPosts = postsData.filter(post => {
 
-  useEffect(() => {
-    setPosts(postsData);
-  }, [setPosts]);
 
-  const filteredPosts = posts.filter((post) => { 
+
+
+
+
     const matchesSearch =
       post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
       post.author.toLowerCase().includes(searchTerm.toLowerCase());
