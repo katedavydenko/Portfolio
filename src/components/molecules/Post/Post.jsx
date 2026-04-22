@@ -1,38 +1,59 @@
 import Button from '../../atoms/Button/Button';
-import Card from '../Card/Card';
 import styles from './Post.module.css';
 import { Link } from 'react-router-dom';
+import { useState, useRef } from 'react';
 
-const Post = ({ id, author, content, date, avatar }) => {
-   const [likes, setLikes] = useState(0);
+const Post = ({ id, title, preview, description, date, previewThumbnail }) => {
+  const [hovered, setHovered] = useState(false);
+  const videoRef = useRef(null);
 
-
-
-
-
-  const handleLike = () => {
-    setLikes(likes + 1);
-  };
+  const hasVideo = !!preview;;
 
   return (
-    <Card>
-      <Link to={`/feed/${id}`}>
-        <div className={styles.header}>
-          <img src={avatar} alt="avatar" className={styles.avatar} />
+    <div className={styles.layout}
+      onMouseEnter={() => {
+        setHovered(true);
+        if (videoRef.current) videoRef.current.play();
+      }}
+      onMouseLeave={() => {
+        setHovered(false);
+        if (videoRef.current) {
+          videoRef.current.pause();
+          videoRef.current.currentTime = 0; // reset
+        }
+      }}
+    >
+      {/* LEFT PREVIEW */}
+      {hasVideo && hovered ? (
+        <video
+          ref={videoRef}
+          src={preview}
+          muted
+          autoPlay
+          className={`${styles.avatar} ${hovered ? styles.fadeIn : styles.fadeOut}`}
+        />
+      ) : (
+        <img src={previewThumbnail} className={styles.avatar} />
+      )}
+      <div className={styles.right}>
+        <div className={styles.top}>
           <div className={styles.info}>
-            <span className={styles.author}>{author}</span>
-            <span className={styles.date}>{date}</span>
+            <span className={styles.title}>{title}</span>
+            <p className={styles.description}>{description}</p>
+
           </div>
         </div>
-      </Link>
+        <div className={styles.bottom}>
+          <span className={styles.description}>{date}</span>
 
-      <p className={styles.content}>{content}</p>
+          <Link to={`/Projects/${id}`} className={styles.button}>VIEW
+          </Link>
 
-      <div className={styles.actions}>
-        <Button variant="secondary" onClick={handleLike}>LIKE ({likes})</Button>
-        <Button variant="primary">COMMENT</Button>
+        </div>
       </div>
-    </Card>
+
+
+    </div>
   );
 };
 

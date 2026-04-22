@@ -1,0 +1,30 @@
+.feed{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    
+}
+.layout{
+    padding: 2vh 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+
+}
+.filters{
+   display: flex;
+    gap: 1vw;
+}
+.filters button {
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+    padding: 20px;
+
+   
+  
+}
+.active{
+    color:blueviolet;
+    transform: scale(1.08);
+}

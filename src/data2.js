@@ -2,29 +2,28 @@
 export const postsData = [
   {
     id: 1,
-    author: "User123",
-    avatar: "https://placeholder.co/50",
-    content: "Це мій перший пост у новій соціальній мережі! React - це круто.",
+    title: "Harriet The Witch",
+    preview: `${import.meta.env.BASE_URL}vid2.mp4`,
+    previewThumbnail: `${import.meta.env.BASE_URL}IlyaRozey.png`,
+    description: "Це мій перший пост у новій соціальній мережі! React - це круто.",
     date: "2 год тому",
-    likes: 5,
-    category: "News"
+    category: "GAMES"
   },
   {
     id: 2,
-    author: "Admin",
-    avatar: "https://placeholder.co/50",
-    content: "Сьогодні ми вивчаємо Lists & Keys. Не забувайте про унікальні ключі!",
-    date: "4 год тому",
-    likes: 12,
-    category: "Updates"
+    title: "66666678686",
+    previewThumbnail: `${import.meta.env.BASE_URL}IlyaRozey.png`,
+    description: "Це мій перший пост у новій соціальній мережі! React - це круто.",
+    date: "2 год тому",
+    category: "FREELANCE"
   },
   {
     id: 3,
-    author: "Student_KP",
-    avatar: "https://placeholder.co/50",
-    content: "Лабораторна робота №2 виконується успішно.",
-    date: "1 день тому",
-    likes: 2,
-    category: "News"
+    title: "1",
+    preview: `${import.meta.env.BASE_URL}vid.mp4`,
+    previewThumbnail: `${import.meta.env.BASE_URL}IlyaRozey.png`,
+    description: "Це мій перший пост у новій соціальній мережі! React - це круто.",
+    date: "2 год тому",
+    category: "PERSONAL PROJECTS'"
   }
 ];

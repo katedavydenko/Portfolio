@@ -1,48 +1,58 @@
-import styles from '../../../App.module.css';
+import { useEffect, useRef } from "react";
+import styles from "./Home.module.css";
+import main from '../../pages/Feed/pics/main.png'
 
-import React, { useState } from "react";
-import ProductDetails from "../../product/ProductDetails";
-import ProductActions from "../../product/ProductActions";
-
-import useLocalStorage from "../../../hooks/useLocalStorage";
 const Home = () => {
-const [theme, setTheme] = useLocalStorage("theme", "light");
+  const leftPupilRef = useRef(null);
+  const rightPupilRef = useRef(null);
 
-  const toggleTheme = () => {
-    setTheme(prev => (prev === "light" ? "dark" : "light"));
-  };
-  const [quantity, setQuantity] = useState(1);
+  useEffect(() => {
+    const pupils = [leftPupilRef.current, rightPupilRef.current];
 
-  const product = {
-    title: "Evangelions Ayanami Rei Asuka Action Figures Cosplay Usagis Hachiwares Anime Model Doll Cartoon Desktop Ornaments Toy Fans Gift",
-    price: "$1.42",
-    rating: 4,
-    image: "https://p16-oec-general-useast5.ttcdn-us.com/tos-useast5-i-omjb5zjo8w-tx/f1bf6dcc68e54ccaa9f8cfd2d17d2e81~tplv-fhlh96nyum-resize-webp:800:800.webp?dr=12186&t=555f072d&ps=933b5bde&shp=6ce186a1&shcp=e1be8f53&idc=useast5&from=1826719393"
-  };
+    const handleMouseMove = (e) => {
+      pupils.forEach((pupil) => {
+        if (!pupil) return;
 
-  const handleBuy = () => {
-    alert(`${quantity} sold ${product.title}`);
-  };
+        const eye = pupil.parentElement;
+        if (!eye) return;
+
+        const rect = eye.getBoundingClientRect();
+        const eyeX = rect.left + rect.width / 2;
+        const eyeY = rect.top + rect.height / 2;
+
+        const dx = e.clientX - eyeX;
+        const dy = e.clientY - eyeY;
+
+        const angle = Math.atan2(dy, dx);
+        const maxDistance =
+          rect.width / 2 - pupil.offsetWidth / 2;
+
+        const x = Math.cos(angle) * maxDistance;
+        const y = Math.sin(angle) * maxDistance;
+
+        pupil.style.transform =
+          `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   return (
-    <div>
-      <button className={styles.link} onClick={toggleTheme}>
-        Switch to {theme === "light" ? "dark" : "light"}
-      </button>
-    <div className={`${styles[theme]} ${styles.product} ${styles.login}`}>
-      <ProductDetails
-        image={product.image}
-        title={product.title}
-        rating={product.rating}
-      />
+    <div className={styles.skelly}>
+      
+      <div className={styles.eye1}>
+        <div ref={leftPupilRef} className={styles.pupil}></div>
+      </div>
 
-      <ProductActions
-        price={product.price}
-        quantity={quantity}
-        setQuantity={setQuantity}
-        onBuy={handleBuy}
-      />
-    </div>
+      <div className={styles.eye2}>
+        <div ref={rightPupilRef} className={styles.pupil}></div>
+      </div>
+      <img src = {main}></img>
     </div>
   );
 };

@@ -2,25 +2,28 @@ import { NavLink, Outlet } from 'react-router-dom';
 import styles from '../../../App.module.css';
 const MainLayout = () => {
     const getActiveClass = ({ isActive }) =>
-        isActive? `${styles.link} ${styles.active}` : styles.link;
+        isActive? `${styles.pageLink} ${styles.active}` : styles.pageLink;
     
     return (
-        <div>
+        <div className={styles.container}>
              
-        <header>
-            <div className= {styles.filters}>
-                <NavLink to="/" className={getActiveClass}>MAIN</NavLink>
-                <NavLink to="/news"
-                className={getActiveClass}>NEWS</NavLink>
-                <NavLink to="/feed"
-                className={getActiveClass}>FEED</NavLink>
-                <NavLink to="/profile"
-                className={getActiveClass}>PROFILE</NavLink>
-            </div>
-        </header>
+        
+        <aside  className={`${styles.sidebar} ${styles.left}`}>
+            <NavLink to="/" className={getActiveClass}>MAIN</NavLink>
+            <NavLink to="/news"
+            className={getActiveClass}>ANIMATIONS</NavLink>
+            <NavLink to="/feed"
+            className={getActiveClass}>GALLERY</NavLink>
+            <NavLink to="/projects"
+            className={getActiveClass}>PROJECTS</NavLink>
+            <NavLink to="/profile"
+            className={getActiveClass}>ABOUT</NavLink>
+        </aside>
         <main className={styles.mainContent}>
+            
             <Outlet />
         </main>
+        
         </div>       
            
         
