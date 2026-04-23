@@ -10,8 +10,7 @@ const MainLayout = () => {
         
         <aside  className={`${styles.sidebar} ${styles.left}`}>
             <NavLink to="/" className={getActiveClass}>MAIN</NavLink>
-            <NavLink to="/news"
-            className={getActiveClass}>ANIMATIONS</NavLink>
+            
             <NavLink to="/feed"
             className={getActiveClass}>GALLERY</NavLink>
             <NavLink to="/projects"

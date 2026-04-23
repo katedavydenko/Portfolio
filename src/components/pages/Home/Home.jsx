@@ -1,60 +1,49 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Home.module.css";
-import main from '../../pages/Feed/pics/main.png'
 
-const Home = () => {
-  const leftPupilRef = useRef(null);
-  const rightPupilRef = useRef(null);
+export default function ParallaxPage() {
+  const [pos, setPos] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const pupils = [leftPupilRef.current, rightPupilRef.current];
+    const handleMove = (e) => {
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
 
-    const handleMouseMove = (e) => {
-      pupils.forEach((pupil) => {
-        if (!pupil) return;
-
-        const eye = pupil.parentElement;
-        if (!eye) return;
-
-        const rect = eye.getBoundingClientRect();
-        const eyeX = rect.left + rect.width / 2;
-        const eyeY = rect.top + rect.height / 2;
-
-        const dx = e.clientX - eyeX;
-        const dy = e.clientY - eyeY;
-
-        const angle = Math.atan2(dy, dx);
-        const maxDistance =
-          rect.width / 2 - pupil.offsetWidth / 2;
-
-        const x = Math.cos(angle) * maxDistance;
-        const y = Math.sin(angle) * maxDistance;
-
-        pupil.style.transform =
-          `translate(-50%, -50%) translate(${x}px, ${y}px)`;
-      });
+      setPos({ x, y });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
   }, []);
 
   return (
-    <div className={styles.skelly}>
+    <div className={styles.container}>
       
-      <div className={styles.eye1}>
-        <div ref={leftPupilRef} className={styles.pupil}></div>
+      {/* BACKGROUND (moves less) */}
+      <div
+        className={styles.bg}
+        style={{
+          transform: `translate(${pos.x * 10}px, ${pos.y * 10}px)`
+        }}
+      />
+
+      {/* MIDDLE */}
+      <div
+        className={styles.mid}
+        style={{
+          transform: `translate(${pos.x * 20}px, ${pos.y * 20}px)`
+        }}
+      />
+
+      {/* FRONT (moves more) */}
+      <div
+        className={styles.front}
+        style={{
+          transform: `translate(${pos.x * 40}px, ${pos.y * 40}px)`
+        }}
+      >
       </div>
 
-      <div className={styles.eye2}>
-        <div ref={rightPupilRef} className={styles.pupil}></div>
-      </div>
-      <img src = {main}></img>
     </div>
   );
-};
-
-export default Home;
+}
