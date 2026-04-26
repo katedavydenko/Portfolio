@@ -23,54 +23,60 @@ const MainLayout = () => {
         window.addEventListener("mousemove", handleMove);
         return () => window.removeEventListener("mousemove", handleMove);
     }, [isHome]);
+    useEffect(() => {
+        if (!isHome) return;
 
+        const handleTouch = (e) => {
+            const touch = e.touches[0];
+
+            const x = (touch.clientX / window.innerWidth - 0.5) * 2;
+            const y = (touch.clientY / window.innerHeight - 0.5) * 2;
+
+            setPos({ x, y });
+        };
+
+        window.addEventListener("touchmove", handleTouch);
+
+        return () => {
+            window.removeEventListener("touchmove", handleTouch);
+        };
+    }, [isHome]);
     return (
         <>
             {isHome && (
-                <> <div className={styles.bgContainer}>
+                <> <div className={styles.bgContainer}
+                    style={{
+                        "--x": pos.x,
+                        "--y": pos.y
+                    }}>
                     <div
                         className={styles.bg}
-                        style={{
-                            transform: `translate(${pos.x * 45}px, ${pos.y * 45}px)`
-                        }}
+
                     />
                     <div
                         className={styles.stars}
-                        style={{
-                            transform: `translate(${pos.x * 30}px, ${pos.y * 30}px)`
-                        }}
+
                     />
 
                     <div
                         className={styles.layer1}
-                        style={{
-                            transform: `translate(${pos.x * 20}px, ${pos.y * 20}px)`
-                        }}
+
                     />
                     <div
                         className={styles.clouds}
-                        style={{
-                            transform: `translate(${pos.x * 15}px, ${pos.y * 15}px)`
-                        }}
+
                     />
                     <div
                         className={styles.layer2}
-                        style={{
-                            transform: `translate(${pos.x * 10}px, ${pos.y * 10}px)`
-                        }}
+
                     />
                     <div
                         className={styles.layer3}
-                        style={{
-                            transform: `translate(${pos.x * 5}px, ${pos.y * 5}px)`
-                        }}
+
                     />
                     <div
                         className={styles.layer4}
-                        style={{
-                            transform: `translate(${pos.x * 50}px, ${pos.y * 50}px)
-                            skewX(${pos.x * -10}deg)`
-                        }}
+
                     />
                 </div>
                 </>
@@ -91,7 +97,7 @@ const MainLayout = () => {
                         onClick={() => setOpen(prev => !prev)}
                     >
                         CONTACT
-                    
+
                     </div>
 
                     {open && (
@@ -99,8 +105,8 @@ const MainLayout = () => {
                             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=katedavydenko245@gmail.com">
                                 Email
                             </a>
-                            <a href = "https://www.instagram.com/askellyapple">Instagram</a>
-                            <a href = "www.linkedin.com/in/kate-davydenko">LinkedIn</a>
+                            <a href="https://www.instagram.com/askellyapple">Instagram</a>
+                            <a href="www.linkedin.com/in/kate-davydenko">LinkedIn</a>
                         </div>
                     )}
                 </aside>

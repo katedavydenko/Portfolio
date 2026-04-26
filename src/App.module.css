@@ -63,56 +63,84 @@ header{
 .bg {
   background-color: #800080;
   z-index: 1;
+  transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px));
 }
 .stars{
   background: url('/stars.gif') center/cover;
   z-index: 2;
+  transform: translate(calc(var(--x) * 30px), calc(var(--y) * 30px));
 }
 .layer1 {
   background: url('/l1.png') center/cover no-repeat;
   z-index: 3;
+  transform: translate(calc(var(--x) * 20px), calc(var(--y) * 20px));
 }
 .clouds{
   background: url('/clouds.png') center/cover no-repeat;
   z-index: 4;
   opacity: 0.5;
+  transform: translate(calc(var(--x) * 15px), calc(var(--y) * 15px));
 }
 .layer2 {
   background: url('/l2.png') center/cover no-repeat;
   z-index: 5;
+  transform: translate(calc(var(--x) * 10px), calc(var(--y) * 10px));
 }
 .layer3 {
   background: url('/l3.png') center/cover no-repeat;
   z-index: 6;
+  transform: translate(calc(var(--x) * 5px), calc(var(--y) * 5px));
 }
 .layer4 {
   background: url('/l4.png') center/cover no-repeat;
   z-index: 7;
   bottom: -10%;
   left: -5%;
+  transform:
+    translate(calc(var(--x) * 50px), calc(var(--y) * 50px))
+    skewX(calc(var(--x) * -10deg));
 }
 
-@media screen and (min-width: 340px) {
+@media screen and (min-width: 340px ) and (max-width: 500px ){
+  .bg {
+  background: url('/bgs.png') center/cover no-repeat;
+  z-index: 1;
+  transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px));
+}
 .layer1 {
   background: url('/ls1.png') center/cover no-repeat;
-  z-index: 3;
+  z-index: 2;
+  transform: translate(calc(var(--x) * 2px), calc(var(--y) * 2px));
 }
-.clouds{
+.clouds{ /*apples*/
   background: url('/cloudss.png') center/cover no-repeat;
-  z-index: 4;
-  opacity: 0.5;
+  z-index: 3;
+  transform: translate(calc(var(--x) * 3px), calc(var(--y) * 3px));
+  opacity: 1;
 }
 .layer2 {
   background: url('/ls2.png') center/cover no-repeat;
+  z-index: 4;
+  transform: translate(calc(var(--x) * 2px), calc(var(--y) * 2px));
+}
+.stars{ /*grass*/
+  background: url('/starss.png') center/cover;
   z-index: 5;
+  transform: translate(calc(var(--x) * 4px), calc(var(--y) * 4px));
 }
 .layer3 {
   background: url('/ls3.png') center/cover no-repeat;
   z-index: 6;
+  transform: translate(calc(var(--x) * 5px), calc(var(--y) * 5px))
+  scale(1.1);
 }
 .layer4 {
   background: url('/ls4.png') center/cover no-repeat;
   z-index: 7;
+  transform: translate(calc(var(--x) * 5px), calc(var(--y) * 5px))
+  scale(1.1);
+  bottom: 0;
+  left: 0;
 }
 .sidebar {
   width: 10vw;
@@ -129,6 +157,7 @@ header{
 }
 .container{
   flex-direction: column;
+  overflow: hidden;
 }
 }
 
