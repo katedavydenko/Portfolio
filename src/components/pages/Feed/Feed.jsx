@@ -60,17 +60,28 @@ export default function Gallery() {
   };
 
   const nextImage = () => {
-    const idx = gridItems.findIndex((i) => i.id === activeId);
-    const next = (idx + 1) % gridItems.length;
-    setActiveId(gridItems[next].id);
+    // 1. Filter out movable objects so we only have photos
+    const photosOnly = gridItems.filter(item => item.type !== "movable");
+    
+    // 2. Find the index within that filtered list
+    const idx = photosOnly.findIndex((i) => i.id === activeId);
+    
+    // 3. Move to next (or loop to start)
+    const nextIdx = (idx + 1) % photosOnly.length;
+    setActiveId(photosOnly[nextIdx].id);
   };
 
   const prevImage = () => {
-    const idx = gridItems.findIndex((i) => i.id === activeId);
-    const prev = (idx - 1 + gridItems.length) % gridItems.length;
-    setActiveId(gridItems[prev].id);
+    // 1. Filter out movable objects
+    const photosOnly = gridItems.filter(item => item.type !== "movable");
+    
+    // 2. Find the index
+    const idx = photosOnly.findIndex((i) => i.id === activeId);
+    
+    // 3. Move to previous (or loop to end)
+    const prevIdx = (idx - 1 + photosOnly.length) % photosOnly.length;
+    setActiveId(photosOnly[prevIdx].id);
   };
-
   // SLOTS
   const [slots, setSlots] = useState({
     slotA: null,
@@ -118,7 +129,6 @@ export default function Gallery() {
   return (
     <div className={styles.pageLayout}>
 
-      {/* GRID */}
       <div className={styles.row}>
         {columns.map((column, colIndex) => (
           <div key={colIndex} className={styles.column}>
@@ -127,8 +137,6 @@ export default function Gallery() {
                 key={img.id}
                 src={img.url}
                 alt={img.alt}
-
-                /* ❌ MOVABLE ITEMS NOT CLICKABLE */
                 onClick={() => {
                   if (img.type === "movable") return;
                   openImage(img.id);
