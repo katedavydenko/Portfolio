@@ -1,0 +1,62 @@
+.layout{
+    overflow: hidden;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+.canvas{
+    height:100%;
+    flex: auto;
+
+}
+.right{
+  width:20vw;
+  height: 100%;
+}
+.wimb{
+  position: absolute;
+  z-index: 10;
+  right: 10vw;
+  width: 15vw;
+  animation: wiggle 1s infinite linear;
+}
+@keyframes wiggle{
+  0% {transform: rotate(-10deg)}
+  50% {
+    transform: rotate(10deg);
+  } 
+  100% {transform: rotate(-10deg)}
+}
+
+.slider{
+  height: 100%;
+  width: 80%;
+  overflow: hidden;
+  position: relative;
+}
+.slider::-webkit-scrollbar{
+  display: none;
+}
+.pic {
+  width: 100%;
+  filter: brightness(0);
+  transition: filter 0.5s ease, transform 0.4s ease
+}
+.pic:hover{
+  filter: brightness(1);
+  transform: scale(1.05);
+}
+.group{
+  display: flex;
+  flex-direction: column;
+  animation: spin 20s infinite linear;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+@keyframes spin{
+  from {transform: translateY(0)}
+  100% {
+    transform: translateY(-50%);
+  }
+}

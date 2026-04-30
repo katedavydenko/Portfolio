@@ -2,7 +2,12 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { useRef, useMemo } from "react";
 import * as THREE from "three";
-
+import styles from './Profile.module.css';
+import pic1 from "/krita.svg";
+import pic3 from "/inkscape.png";
+import pic2 from "/blender.png";
+import pic4 from "/aaf.png";
+import wimb from '/wimb.svg'
 function LenticularPlane() {
   const meshRef = useRef();
   const { camera } = useThree();
@@ -100,13 +105,35 @@ function LenticularPlane() {
 
 export default function Scene() {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-      <ambientLight intensity={1} />
+    <div className={styles.layout}>
+      <div className={styles.canvas}>
+        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+          <ambientLight intensity={1} />
 
-      <LenticularPlane />
+          <LenticularPlane />
 
-      {/* THIS lets you rotate manually */}
-      <OrbitControls />
-    </Canvas>
+          <OrbitControls />
+        </Canvas>
+      </div>
+    
+      <div className={styles.right}>
+        {/*<img className= {styles.wimb} src={wimb}></img>*/}
+        <div className={styles.slider}>
+          <div aria-hidden="true" className={styles.group}>
+            <img className={styles.pic} src={pic1} ></img>
+            <img className={styles.pic} src={pic2}></img>
+            <img className={styles.pic} src={pic3} ></img>
+            <img className={styles.pic} src={pic4} ></img>
+            <img className={styles.pic} src={pic1} ></img>
+            <img className={styles.pic} src={pic2}  ></img>
+            <img className={styles.pic} src={pic3}></img>
+            <img className={styles.pic} src={pic4}></img>
+          </div>
+
+        </div>
+      </div>
+  
+    </div>
+
   );
 }
