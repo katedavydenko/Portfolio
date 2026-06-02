@@ -1,0 +1,141 @@
+import {
+    Chart as ChartJS,
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+import styles from './RadarChart.module.css'
+import { useEffect, useRef } from 'react';
+import { Radar } from 'react-chartjs-2';
+const css = getComputedStyle(document.documentElement);
+ChartJS.register(
+    RadialLinearScale,
+    PointElement,
+    LineElement,
+    Filler,
+    Tooltip,
+    Legend
+);
+export default function RadarChart() {
+    const chartRef = useRef(null);
+    const time = useRef(0);
+
+    useEffect(() => {
+        let frame;
+
+        const animate = () => {
+            time.current += 0.15;
+
+            if (chartRef.current) {
+                chartRef.current.update('none');
+            }
+
+            frame = requestAnimationFrame(animate);
+        };
+
+        animate();
+
+        return () => cancelAnimationFrame(frame);
+    }, []);
+
+    const data = {
+        labels: [
+            ['Illustration'],
+            ['Simple', 'Animation'],
+            ['Comic'],
+            ['Web', 'Design'],
+            ['Character', 'Design'],
+        ],
+        datasets: [{
+            data: [5, 3, 2, 3, 4],
+            fill: true,
+            borderWidth: 3,
+
+            backgroundColor: (context) => {
+                const { ctx, chartArea } = context.chart;
+
+                if (!chartArea) return;
+
+                const t = time.current;
+
+                const gradient = ctx.createLinearGradient(
+                    chartArea.left,
+                    chartArea.top,
+                    chartArea.right,
+                    chartArea.bottom
+                );
+
+                const stop1 = (Math.sin(t) + 1) / 2;
+                const stop2 = (Math.sin(t + 1.5) + 1) / 2;
+
+                gradient.addColorStop(
+                    0,
+                    `rgba(${255 * stop1}, 77, 166, 0.8)`
+                );
+
+                gradient.addColorStop(
+                    0.5,
+                    `rgba(173, ${120 + 100 * stop2}, 255, 0.8)`
+                );
+
+                gradient.addColorStop(
+                    1,
+                    `rgba(255,255,255, 0.8)`
+                );
+
+                return gradient;
+            },
+            borderColor: css.getPropertyValue('--accent-color'),
+            pointBackgroundColor: css.getPropertyValue('--white'),
+            pointBorderColor: css.getPropertyValue('--white'),
+            pointHoverBackgroundColor: css.getPropertyValue('--white'),
+            pointHoverBorderColor: css.getPropertyValue('--white')
+        }],
+    };
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        animation: false,
+        scales: {
+            r: {
+
+                min: 0,
+                max: 5,
+                angleLines: {
+                    color: css.getPropertyValue('--background-color2'),
+                },
+                grid: {
+                    color: css.getPropertyValue('--background-color2'),
+                    lineWidth: 1
+
+                },
+                pointLabels: {
+                    color: css.getPropertyValue('--white'),
+                    font: {
+                        size: css.getPropertyValue('--font-size'),
+                    },
+                },
+                ticks: {
+                    stepSize: 1,
+                    display: false
+                },
+            },
+        },
+        plugins: {
+            legend: {
+                display: false
+
+            },
+        },
+    };
+    return (
+        <div className={styles.chart} >
+            <Radar ref={chartRef} data={data} options={options} />
+        </div >
+    );
+
+}

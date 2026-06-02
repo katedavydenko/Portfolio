@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    background-color: var(--background-color);
+    font-family: "Silkscreen";
+
+}
+
+.viewport {
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.pageSlider {
+    height: 100%;
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+
+    transition:
+        transform 1200ms cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.page {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+@-webkit-keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@-moz-keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@-o-keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@keyframes bg-scrolling-reverse {
+    100% {
+        background-position: 50px 50px;
+    }
+}
+
+@-webkit-keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+@-moz-keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+@-o-keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+@keyframes bg-scrolling {
+    0% {
+        background-position: 50px 50px;
+    }
+}
+
+/*
+body {
+  
+  background: url("/a.png") repeat 0 0;
+  
+  -webkit-animation: bg-scrolling-reverse 10s infinite; 
+  -moz-animation:    bg-scrolling-reverse 10s infinite;
+  -o-animation:      bg-scrolling-reverse 10s infinite; 
+  animation:         bg-scrolling-reverse 10s infinite; 
+  -webkit-animation-timing-function: linear;
+  -moz-animation-timing-function:    linear;
+  -o-animation-timing-function:      linear;
+  animation-timing-function:         linear;
+  
+  
+}
+body[data-theme="light"] {
+    background: url("/al.png") repeat 0 0;
+}
+*/
+
+
+::view-transition-new(root) {
+    animation: circle-in 2000ms;
+}
+
+::view-transition-old(root) {
+    animation-delay: 1000ms;
+}
+
+@keyframes circle-in {
+    from {
+        clip-path: circle(0% at 32% 10%);
+    }
+
+    to {
+        clip-path: circle(200% at 50% 0%);
+    }
+}
+
+.sidebar {
+    width: 10vw;
+    position: sticky;
+    top: 0px;
+    align-self: flex-start;
+    z-index: 10;
+}
+
+/* Left */
+.left {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 5px;
+}
+
+.pageLink {
+    color: rgb(0, 0, 0);
+    width: 200px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    padding: 8px 4px;
+    position: relative;
+    transition:
+        color 0.5s ease,
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    overflow: hidden;
+    z-index: 1;
+    border: 2px solid #000000ff;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+}
+
+.pageLink span {
+    position: absolute;
+    left: 1vw;
+    transition:
+        left 1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pageLink::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: -40px;
+    background: var(--background-color);
+    z-index: -1;
+    transition:
+        width 1s cubic-bezier(0.22, 1, 0.36, 1);
+
+}
+
+.pageLink:hover {
+    color: #ffffff;
+    justify-content: flex-end;
+    transform: rotate(3deg);
+    transition: color 0.5s ease;
+
+}
+
+.contactList {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+}
+
+.contactList a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.pageLink:hover span {
+    left: calc(100% - 1vw);
+    transform: translateX(-100%);
+}
+
+.pageLink:hover::before {
+    width: 160%;
+}
+
+.active {
+    background-color: var(--background-color) !important;
+    color: rgb(255, 255, 255);
+
+}
+
+.active span {
+    left: calc(100% - 1vw);
+    transform: translateX(-100%);
+    text-decoration: underline;
+}
+
+.mainContent {
+    flex: 1;
+}
+
+.container {
+    display: flex;
+    height: 100dvh;
+    z-index: 2;
+
+}
+
+.firefly {
+    position: absolute;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #fff8a6;
+
+    box-shadow:
+        0 0 10px #fff176,
+        0 0 20px #ffee58;
+
+    animation:
+        float ease-in-out infinite,
+        flash 3s ease-in-out infinite;
+}
+
+/* floating motion */
+@keyframes float {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    25% {
+        transform: translate(40px, -60px);
+    }
+
+    50% {
+        transform: translate(-30px, -120px);
+    }
+
+    75% {
+        transform: translate(50px, -60px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+
+/* glowing */
+@keyframes flash {
+
+    0%,
+    100% {
+        opacity: 0.2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}

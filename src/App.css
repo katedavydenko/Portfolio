@@ -1,0 +1,17 @@
+[data-theme="light"] {
+
+  --background-color: #f79016;
+  --secondary-color: #2d8f14;
+  --background-color2: #800080;
+  --secondary-color2: #9ecf35;
+
+}
+:root {
+  --background-color: #800080;
+  --secondary-color: #9ecf35;
+  --background-color2: #f79016;
+  --secondary-color2: #2d8f14;
+  --font-size: 14px;
+  --accent-color : #f722c2;
+  --white: #ffff;
+}

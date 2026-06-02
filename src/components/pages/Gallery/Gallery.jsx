@@ -1,0 +1,261 @@
+import React, { useState } from "react";
+import styles from "./Gallery.module.css";
+import bgVideo from "./pics/tr.mp4";
+
+// Images
+import weddingImg from "./pics/Untitled1.png";
+import rocksImg from "./pics/Untitled2.png";
+import fallsImg from "./pics/Untitled2.png";
+import parisImg from "./pics/Untitled3.png";
+import natureImg from "./pics/Untitled3.png";
+import mistImg from "./pics/Untitled1.png";
+import underwaterImg from "./pics/Untitled2.png";
+import oceanImg from "./pics/Untitled2.png";
+import mountainImg from "./pics/Untitled1.png";
+import item1 from "./pics/it1.png";
+import item2 from "./pics/it2.png";
+import item3 from "./pics/it3.png";
+import item4 from "./pics/it4.png";
+import puzzBg from "./pics/bg1.gif";
+
+// DATA
+const initialItems = [
+  { id: "1", url: weddingImg, alt: "Wedding" },
+  { id: "2", url: rocksImg, alt: "Rocks" },
+  { id: "3", url: fallsImg, alt: "Falls" },
+
+  { id: "obj1", url: item1, type: "movable", targetSlot: "slotA" },
+  { id: "obj2", url: item2, type: "movable", targetSlot: "slotB" },
+  { id: "obj3", url: item3, type: "movable", targetSlot: "slotC" },
+  { id: "obj4", url: item4, type: "movable", targetSlot: "slotD" },
+
+  { id: "4", url: parisImg, alt: "Paris" },
+  { id: "5", url: natureImg, alt: "Nature" },
+  { id: "6", url: mistImg, alt: "Mist" },
+  { id: "7", url: parisImg, alt: "Paris" },
+
+  { id: "8", url: underwaterImg, alt: "Underwater" },
+  { id: "9", url: oceanImg, alt: "Ocean" },
+  { id: "10", url: weddingImg, alt: "Wedding" },
+  { id: "11", url: mountainImg, alt: "Mountains" },
+  { id: "12", url: rocksImg, alt: "Rocks" },
+  { id: "13", url: underwaterImg, alt: "Underwater" },
+];
+
+// shuffle
+const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+
+// split into columns
+const splitIntoColumns = (items, cols = 4) => {
+  const result = Array.from({ length: cols }, () => []);
+  items.forEach((item, i) => {
+    result[i % cols].push(item);
+  });
+  return result;
+};
+
+export default function Gallery() {
+  const [gridItems, setGridItems] = useState(() => shuffle(initialItems));
+
+  // LIGHTBOX (ID based — FIXED)
+  const [activeId, setActiveId] = useState(null);
+
+  const openImage = (id) => {
+    setActiveId(id);
+  };
+
+  const nextImage = () => {
+    // 1. Filter out movable objects so we only have photos
+    const photosOnly = gridItems.filter(item => item.type !== "movable");
+
+    // 2. Find the index within that filtered list
+    const idx = photosOnly.findIndex((i) => i.id === activeId);
+
+    // 3. Move to next (or loop to start)
+    const nextIdx = (idx + 1) % photosOnly.length;
+    setActiveId(photosOnly[nextIdx].id);
+  };
+
+  const prevImage = () => {
+    // 1. Filter out movable objects
+    const photosOnly = gridItems.filter(item => item.type !== "movable");
+
+    // 2. Find the index
+    const idx = photosOnly.findIndex((i) => i.id === activeId);
+
+    // 3. Move to previous (or loop to end)
+    const prevIdx = (idx - 1 + photosOnly.length) % photosOnly.length;
+    setActiveId(photosOnly[prevIdx].id);
+  };
+  // SLOTS
+  const [slots, setSlots] = useState({
+    slotA: null,
+    slotB: null,
+    slotC: null,
+    slotD: null,
+  });
+
+  const isComplete =
+    slots.slotA &&
+    slots.slotB &&
+    slots.slotC &&
+    slots.slotD
+
+  const columns = splitIntoColumns(gridItems, 4);
+
+  // DRAG
+  const onDragStart = (e, item) => {
+    e.dataTransfer.setData("itemId", item.id);
+  };
+
+  const onDragOver = (e) => e.preventDefault();
+
+  const onDrop = (e, slotId) => {
+    e.preventDefault();
+
+    const itemId = e.dataTransfer.getData("itemId");
+    const item = gridItems.find((i) => i.id === itemId);
+
+    if (!item) return;
+    if (slots[slotId]) return;
+    if (item.type !== "movable") return;
+
+    if (item.targetSlot === slotId) {
+      setSlots((prev) => ({
+        ...prev,
+        [slotId]: item,
+      }));
+
+      setGridItems((prev) =>
+        prev.filter((i) => i.id !== itemId)
+      );
+    }
+  };
+
+  return (
+    <div className={styles.pageLayout}>
+      <div className={styles.gallery}>
+        <div className={styles.row}>
+          {columns.map((column, colIndex) => (
+            <div key={colIndex} className={styles.column}>
+              {column.map((img) => (
+                <img
+                  key={img.id}
+                  src={img.url}
+                  alt={img.alt}
+                  onClick={() => {
+                    if (img.type === "movable") return;
+                    openImage(img.id);
+                  }}
+
+                  draggable={img.type === "movable"}
+                  onDragStart={(e) => onDragStart(e, img)}
+
+                  className={
+                    img.type === "movable"
+                      ? styles.movable
+                      : styles.galleryImage
+                  }
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+
+        {/* LIGHTBOX */}
+        {activeId && (
+          <div className={styles.lightbox} onClick={() => setActiveId(null)}>
+
+            <button
+              className={styles.left}
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+            >
+              ‹
+            </button>
+
+            <img
+              src={gridItems.find((i) => i.id === activeId)?.url}
+              className={styles.lightboxImg}
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            <button
+              className={styles.right}
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+            >
+              ›
+            </button>
+
+          </div>
+        )}
+      </div>
+      <div className={styles.sidebar}>
+        <div className={styles.puzzle}>
+          {isComplete && (
+            <video
+              className={styles.bgVideo}
+              autoPlay
+              muted
+              playsInline
+            >
+              <source src={bgVideo} type="video/mp4" />
+            </video>
+          )}
+          <div
+            className={styles.slot1}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, "slotA")}
+          >
+            {slots.slotA ? (
+              <img src={slots.slotA.url} alt="slotA" />
+            ) : (
+              ""
+            )}
+          </div>
+
+          <div
+            className={styles.slot2}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, "slotB")}
+          >
+            {slots.slotB ? (
+              <img src={slots.slotB.url} alt="slotB" />
+            ) : (
+              ""
+            )}
+          </div>
+          <div
+            className={styles.slot3}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, "slotC")}
+          >
+            {slots.slotC ? (
+              <img src={slots.slotC.url} alt="slotC" />
+            ) : (
+              ""
+            )}
+          </div>
+          <div
+            className={styles.slot4}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, "slotD")}
+          >
+            {slots.slotD ? (
+              <img src={slots.slotD.url} alt="slotD" />
+            ) : (
+              ""
+            )}
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  );
+}

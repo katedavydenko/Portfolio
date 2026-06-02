@@ -1,40 +1,30 @@
 import { Routes, Route } from 'react-router-dom';
 import MainLayout from './components/templates/MainLayout/MainLayout';
 import Home from './components/pages/Home/Home';
-import Feed from './components/pages/Feed/Feed';
-import PostPage from './components/pages/PostPage/PostPage';
-import Profile from './components/pages/Profile/Profile'
+import Gallery from './components/pages/Gallery/Gallery';
+import ProjectPage from './components/pages/ProjectPage/ProjectPage';
+import Profile from './components/pages/About/About'
 import NotFound from './components/pages/NotFound/NotFound';
-import ProfileSettings from './components/pages/Profile/ProfileSettings';
-import ProfileOverview from './components/pages/Profile/ProfileOverview';
-import Login from './components/pages/Login/Login';
-import Register from './components/pages/Register/Register';
-import ProtectedRoute from "./components/hoc/ProtectedRoute";
 import Projects from "./components/pages/Projects/Projects";
-import useOnlineStatus from "./hooks/useOnlineStatus";
+import ReturnWallet from "./components/pages/ReturnWallet/ReturnWallet";
 
-function App()  {
-  const isOnline = useOnlineStatus();
+function App() {
 
   return (
     <>
-      
+
 
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="feed" element={<Feed />} />
+          <Route path="gallery" element={<Gallery />} />
           <Route path="projects" element={<Projects />} />
-          <Route path="projects/:id" element={<PostPage />} />
-          <Route path="login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="projects/:id" element={<ProjectPage />} />
           <Route path="*" element={<NotFound />} />
-
+          <Route path="return_wallet" element={<ReturnWallet />} />
           <Route path="profile" element={<Profile />}>
-            <Route index element={<ProfileOverview />} />
-            <Route path="settings" element={<ProfileSettings />} />
           </Route>
-       
+
         </Route>
       </Routes>
     </>
