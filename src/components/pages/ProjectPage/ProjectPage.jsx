@@ -79,22 +79,7 @@ export default function ProjectPage() {
       />
       <div className={styles.container}>
 
-        <div className={styles.scene}>
-          <div className={styles.banner}>
 
-            <div className={`${styles.side} ${styles.front}`}>
-              <img src="/Portfolio/projects_assets/banners/htw_banner.png" alt="" />
-            </div>
-
-            <div className={`${styles.side} ${styles.back}`}>
-              <div className={styles.backText}>
-                <p>{project.title}</p>
-
-              </div>
-            </div>
-
-          </div>
-        </div>
         <div className={styles.projectDetails}>
           <div className={styles.assetDisplay}>
             <img
@@ -105,21 +90,20 @@ export default function ProjectPage() {
             />
 
           </div>
-          <div className={styles.projectInfo}>
 
-            <div className={styles.projectTitle}>{project.title}</div>
-            <div className={styles.fullDescription}>{project.fullDescription}</div>
+          <div className={styles.projectTitle}>{project.title}</div>
+          <div className={styles.fullDescription}>{project.fullDescription}</div>
 
+          <div className={styles.roles}>
+            <p>Roles:</p>
+            {project.roles.map(feature => (
+              <p key={feature}>{feature}</p>
+            ))}
           </div>
         </div>
 
 
-        <div className={styles.roles}>
-          <p>Roles:</p>
-          {project.roles.map(feature => (
-            <p key={feature}>{feature}</p>
-          ))}
-        </div>
+
         <div className={styles.picDisplay}>
           {project.pics.map((pic, index) => (
             <div

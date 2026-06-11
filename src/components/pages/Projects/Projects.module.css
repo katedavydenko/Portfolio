@@ -1,30 +1,51 @@
-.feed{
-    display: flex;
-    flex-direction: column;
+.feed {
+    display: grid;
     gap: 1vh;
-    
+    grid-template-columns: auto auto;
+
 }
-.layout{
+
+.layout {
     padding: 2vh 2vw;
     display: flex;
     flex-direction: column;
     gap: 1vh;
 
 }
-.filters{
-   display: flex;
+
+.filters {
+    display: flex;
     gap: 1vw;
+    margin: 2vh 0;
 }
-.filters button {
 
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.tag {
+
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
     padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 50px;
 
-   
-  
 }
-.active{
-    color:blueviolet;
-    transform: scale(1.08);
+
+.active {
+    background-color: var(--secondary-color2);
+    cursor: pointer;
+
+    padding: 2vw;
+    border-radius: 0;
+    
+}
+
+@media screen and (min-width: 340px) and (max-width: 500px) {
+    .feed {
+
+        grid-template-columns: auto;
+    }
+
+    .filters {
+
+        justify-content: center;
+    }
 }

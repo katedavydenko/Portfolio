@@ -1,68 +1,77 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Gallery.module.css";
-import bgVideo from "./pics/tr.mp4";
-
-// Images
-import weddingImg from "./pics/Untitled1.png";
-import rocksImg from "./pics/Untitled2.png";
-import fallsImg from "./pics/Untitled2.png";
-import parisImg from "./pics/Untitled3.png";
-import natureImg from "./pics/Untitled3.png";
-import mistImg from "./pics/Untitled1.png";
-import underwaterImg from "./pics/Untitled2.png";
-import oceanImg from "./pics/Untitled2.png";
-import mountainImg from "./pics/Untitled1.png";
-import item1 from "./pics/it1.png";
-import item2 from "./pics/it2.png";
-import item3 from "./pics/it3.png";
-import item4 from "./pics/it4.png";
-import puzzBg from "./pics/bg1.gif";
+import galleryData from "../../../data/galleryData.js";
+import { assets } from "../../../data/assets";
 
 // DATA
-const initialItems = [
-  { id: "1", url: weddingImg, alt: "Wedding" },
-  { id: "2", url: rocksImg, alt: "Rocks" },
-  { id: "3", url: fallsImg, alt: "Falls" },
+const initialItems = galleryData.items.map(item => ({
+  ...item,
+  url: assets[item.image]
+}));
 
-  { id: "obj1", url: item1, type: "movable", targetSlot: "slotA" },
-  { id: "obj2", url: item2, type: "movable", targetSlot: "slotB" },
-  { id: "obj3", url: item3, type: "movable", targetSlot: "slotC" },
-  { id: "obj4", url: item4, type: "movable", targetSlot: "slotD" },
 
-  { id: "4", url: parisImg, alt: "Paris" },
-  { id: "5", url: natureImg, alt: "Nature" },
-  { id: "6", url: mistImg, alt: "Mist" },
-  { id: "7", url: parisImg, alt: "Paris" },
+// Keep photos ordered, randomize movable positions
+const randomizeMovablePositions = (items) => {
+  const photos = items.filter(item => item.type !== "movable");
 
-  { id: "8", url: underwaterImg, alt: "Underwater" },
-  { id: "9", url: oceanImg, alt: "Ocean" },
-  { id: "10", url: weddingImg, alt: "Wedding" },
-  { id: "11", url: mountainImg, alt: "Mountains" },
-  { id: "12", url: rocksImg, alt: "Rocks" },
-  { id: "13", url: underwaterImg, alt: "Underwater" },
-];
+  const movables = items
+    .filter(item => item.type === "movable")
+    .sort(() => Math.random() - 0.5);
 
-// shuffle
-const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+  const result = [...photos];
 
-// split into columns
-const splitIntoColumns = (items, cols = 4) => {
-  const result = Array.from({ length: cols }, () => []);
-  items.forEach((item, i) => {
-    result[i % cols].push(item);
+  movables.forEach(movable => {
+    const randomIndex = Math.floor(
+      Math.random() * (result.length + 1)
+    );
+
+    result.splice(randomIndex, 0, movable);
   });
+
   return result;
 };
 
+
+
 export default function Gallery() {
-  const [gridItems, setGridItems] = useState(() => shuffle(initialItems));
+  const [gridItems, setGridItems] = useState(() =>
+    randomizeMovablePositions(initialItems)
+  );
+  ;
 
   // LIGHTBOX (ID based — FIXED)
   const [activeId, setActiveId] = useState(null);
-
+  const [openPuzzle, setOpenPuzzle] = useState(true);
+  const [collectedItems, setCollectedItems] = useState([]);
+  const [selectedItem, setSelectedItem] = useState(null);
   const openImage = (id) => {
     setActiveId(id);
   };
+  const collectItem = (item) => {
+    if (item.type !== "movable") return;
+
+    setCollectedItems(prev => [...prev, item]);
+
+    setGridItems(prev =>
+      prev.filter(i => i.id !== item.id)
+    );
+  };
+
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    window.innerWidth <= 950
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 950);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const nextImage = () => {
     // 1. Filter out movable objects so we only have photos
@@ -101,7 +110,6 @@ export default function Gallery() {
     slots.slotC &&
     slots.slotD
 
-  const columns = splitIntoColumns(gridItems, 4);
 
   // DRAG
   const onDragStart = (e, item) => {
@@ -114,7 +122,9 @@ export default function Gallery() {
     e.preventDefault();
 
     const itemId = e.dataTransfer.getData("itemId");
-    const item = gridItems.find((i) => i.id === itemId);
+    const item =
+      gridItems.find(i => i.id === itemId) ||
+      collectedItems.find(i => i.id === itemId);
 
     if (!item) return;
     if (slots[slotId]) return;
@@ -129,39 +139,74 @@ export default function Gallery() {
       setGridItems((prev) =>
         prev.filter((i) => i.id !== itemId)
       );
+      setCollectedItems((prev) =>
+        prev.filter(i => i.id !== itemId)
+      );
     }
+  };
+  const handleItemClick = (item) => {
+    if (item.type !== "movable") return;
+    console.log("clicked", item.id);
+    if (isSmallScreen) {
+      setSelectedItem(item);
+      return;
+    }
+    setSelectedItem(prev =>
+      prev?.id === item.id ? null : item
+    );
+
+    openImage(item.id);
+  };
+  const handleSlotClick = (slotId) => {
+    if (!selectedItem) return;
+    if (slots[slotId]) return;
+    if (selectedItem.targetSlot !== slotId) return;
+
+    setSlots(prev => ({
+      ...prev,
+      [slotId]: selectedItem
+    }));
+
+    setGridItems(prev =>
+      prev.filter(i => i.id !== selectedItem.id)
+    );
+
+    setCollectedItems(prev =>
+      prev.filter(i => i.id !== selectedItem.id)
+    );
+
+    setSelectedItem(null);
   };
 
   return (
     <div className={styles.pageLayout}>
       <div className={styles.gallery}>
-        <div className={styles.row}>
-          {columns.map((column, colIndex) => (
-            <div key={colIndex} className={styles.column}>
-              {column.map((img) => (
-                <img
-                  key={img.id}
-                  src={img.url}
-                  alt={img.alt}
-                  onClick={() => {
-                    if (img.type === "movable") return;
-                    openImage(img.id);
-                  }}
-
-                  draggable={img.type === "movable"}
-                  onDragStart={(e) => onDragStart(e, img)}
-
-                  className={
-                    img.type === "movable"
-                      ? styles.movable
-                      : styles.galleryImage
+        <div className={styles.galleryGrid}>
+          {gridItems.map((img) => (
+            <img
+              key={img.id}
+              src={img.url}
+              alt={img.alt}
+              loading="lazy"
+              onClick={() => {
+                if (img.type === "movable") {
+                  if (isSmallScreen) {
+                    collectItem(img);
                   }
-                />
-              ))}
-            </div>
+                  return;
+                }
+                openImage(img.id);
+              }}
+              draggable={img.type === "movable"}
+              onDragStart={(e) => onDragStart(e, img)}
+              className={
+                img.type === "movable"
+                  ? styles.movable
+                  : styles.galleryImage
+              }
+            />
           ))}
         </div>
-
         {/* LIGHTBOX */}
         {activeId && (
           <div className={styles.lightbox} onClick={() => setActiveId(null)}>
@@ -196,64 +241,89 @@ export default function Gallery() {
         )}
       </div>
       <div className={styles.sidebar}>
-        <div className={styles.puzzle}>
-          {isComplete && (
-            <video
-              className={styles.bgVideo}
-              autoPlay
-              muted
-              playsInline
+        <div className={styles.revealBtn} onClick={() => setOpenPuzzle(prev => !prev)}>{openPuzzle ? <div className={styles.revealBtnText}><div>CLOSE PUZZLE </div> <div>&#8675;</div></div> : <div className={styles.revealBtnText}> <div>OPEN PUZZLE</div> <div>&#8673;</div></div>}</div>
+
+        {openPuzzle && <>
+          <div className={styles.collectedItemsWrapper}>
+            <div className={styles.collectedItems}>
+              {collectedItems.map(item => (
+                <img
+                  key={item.id}
+                  src={item.url}
+                  alt={item.alt || item.id}
+                  draggable
+                  onClick={() => handleItemClick(item)}
+                  className={`${styles.collectedItem} ${selectedItem?.id === item.id ? styles.selected : ""
+                    }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div className={styles.puzzle}>
+            {isComplete && (
+              <video
+                className={styles.bgVideo}
+                autoPlay
+                muted
+                playsInline
+              >
+                <source src={assets.bgVideo} type="video/mp4" />
+              </video>
+            )}
+            <div
+              className={styles.slot1}
+              onClick={() => handleSlotClick("slotA")}
+              onDragOver={onDragOver}
+              onDrop={(e) => onDrop(e, "slotA")}
             >
-              <source src={bgVideo} type="video/mp4" />
-            </video>
-          )}
-          <div
-            className={styles.slot1}
-            onDragOver={onDragOver}
-            onDrop={(e) => onDrop(e, "slotA")}
-          >
-            {slots.slotA ? (
-              <img src={slots.slotA.url} alt="slotA" />
-            ) : (
-              ""
-            )}
-          </div>
+              {slots.slotA ? (
+                <img src={slots.slotA.url} alt="slotA" />
+              ) : (
+                ""
+              )}
+            </div>
 
-          <div
-            className={styles.slot2}
-            onDragOver={onDragOver}
-            onDrop={(e) => onDrop(e, "slotB")}
-          >
-            {slots.slotB ? (
-              <img src={slots.slotB.url} alt="slotB" />
-            ) : (
-              ""
-            )}
+            <div
+              className={styles.slot2}
+              onClick={() => handleSlotClick("slotB")}
+              onDragOver={onDragOver}
+              onDrop={(e) => onDrop(e, "slotB")}
+            >
+              {slots.slotB ? (
+                <img src={slots.slotB.url} alt="slotB" />
+              ) : (
+                ""
+              )}
+            </div>
+            <div
+              className={styles.slot3}
+              onClick={() => handleSlotClick("slotC")}
+              onDragOver={onDragOver}
+              onDrop={(e) => onDrop(e, "slotC")}
+            >
+              {slots.slotC ? (
+                <img src={slots.slotC.url} alt="slotC" />
+              ) : (
+                ""
+              )}
+            </div>
+            <div
+              className={styles.slot4}
+              onClick={() => handleSlotClick("slotD")}
+              onDragOver={onDragOver}
+              onDrop={(e) => onDrop(e, "slotD")}
+            >
+              {slots.slotD ? (
+                <img src={slots.slotD.url} alt="slotD" />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-          <div
-            className={styles.slot3}
-            onDragOver={onDragOver}
-            onDrop={(e) => onDrop(e, "slotC")}
-          >
-            {slots.slotC ? (
-              <img src={slots.slotC.url} alt="slotC" />
-            ) : (
-              ""
-            )}
-          </div>
-          <div
-            className={styles.slot4}
-            onDragOver={onDragOver}
-            onDrop={(e) => onDrop(e, "slotD")}
-          >
-            {slots.slotD ? (
-              <img src={slots.slotD.url} alt="slotD" />
-            ) : (
-              ""
-            )}
-          </div>
+        </>
+        }
 
-        </div>
 
       </div>
     </div>
