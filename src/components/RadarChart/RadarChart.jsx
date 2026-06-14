@@ -89,8 +89,8 @@ export default function RadarChart() {
                 return gradient;
             },
             borderColor: css.getPropertyValue('--accent-color'),
-            pointBackgroundColor: css.getPropertyValue('--white'),
-            pointBorderColor: css.getPropertyValue('--white'),
+            pointBackgroundColor: css.getPropertyValue('--accent-color'),
+            pointBorderColor: css.getPropertyValue('--accent-color'),
             pointHoverBackgroundColor: css.getPropertyValue('--white'),
             pointHoverBorderColor: css.getPropertyValue('--white')
         }],
@@ -106,15 +106,15 @@ export default function RadarChart() {
                 min: 0,
                 max: 5,
                 angleLines: {
-                    color: css.getPropertyValue('--background-color2'),
+                    color: "#000000",
                 },
                 grid: {
-                    color: css.getPropertyValue('--background-color2'),
+                    color: "#000000",
                     lineWidth: 1
 
                 },
                 pointLabels: {
-                    color: css.getPropertyValue('--white'),
+                    color: "#000000",
                     font: {
                         size: css.getPropertyValue('--font-size'),
                         family:  "Silkscreen"

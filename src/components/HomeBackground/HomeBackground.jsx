@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from "./HomeBackground.module.css";
-
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const HomeBackground = ({ currentIndex }) => {
-    const [isLight, setIsLight] = useState(false);
     const [pos, setPos] = useState({ x: 0, y: 0 });
+    const [theme, setTheme] = useLocalStorage("theme", "dark");
 
     useEffect(() => {
-        document.body.setAttribute(
-            "data-theme",
-            isLight ? "light" : "dark"
-        );
-    }, [isLight]);
+        document.body.setAttribute("data-theme", theme);
+    }, [theme]);
 
     useEffect(() => {
         const handleMove = (e) => {
@@ -54,11 +51,9 @@ const HomeBackground = ({ currentIndex }) => {
     const toggleTheme = () => {
         if (document.startViewTransition) {
             document.startViewTransition(() => {
-                setIsLight((prev) => !prev);
+                setTheme(prev => (prev === "light" ? "dark" : "light"));
             });
-        } else {
-            setIsLight((prev) => !prev);
-        }
+        } 
     };
 
     return (

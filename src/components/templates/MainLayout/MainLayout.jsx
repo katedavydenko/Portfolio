@@ -1,12 +1,34 @@
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import styles from './MainLayout.module.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
 const MainLayout = () => {
+
+    const location = useLocation();
+    const [theme] = useLocalStorage("theme", "light");
     const getActiveClass = ({ isActive }) =>
         isActive ? `${styles.pageLink} ${styles.active}` : styles.pageLink;
 
     const [open, setOpen] = useState(false);
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+    }, [theme]);
+    useEffect(() => {
+        let value = "";
+
+
+        if (location.pathname === "/gallery") {
+            value = "var(--background-color-grass)";
+        }
+
+        if (location.pathname === "/projects") {
+            value = "var(--background-color-grass)";
+        }
+
+        // set ONE variable only
+        document.body.style.setProperty("--bg-current", value);
+    }, [location.pathname, theme]);
 
     return (
         <>

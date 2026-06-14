@@ -1,15 +1,12 @@
 .chart {
 
   width: 100%;
-  max-width: 30vw;
+  height: 100%;
 
   aspect-ratio: 1 / 1;
 
   position: relative;
   margin: 0 2vw 0 0;
   font-family: inherit;
-}
-
-.chart canvas {
-  margin: 0;
+  box-sizing: border-box;
 }

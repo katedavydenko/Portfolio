@@ -1,6 +1,6 @@
 .projectDetails {
     display: grid;
-    grid-template-columns: fit-content auto auto;
+    grid-template-columns: auto auto;
     grid-template-rows: fit-content fit-content;
     color: var(--light-color);
     box-sizing: border-box;
@@ -8,32 +8,26 @@
     gap: 1vw;
 }
 
-.assetDisplay {
-    height: 18vh;
-    grid-column: 1;
-    grid-row: 1;
+body[data-theme="light"] .projectDetails {
+
+    color: var(--dark-color);
 }
 
-.assetDisplay img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-}
+
 
 .projectTitle {
-    grid-column: 2;
+    grid-column: 1;
     grid-row: 1;
     align-self: center;
     font-size: 5vh;
 }
 
 .fullDescription {
-    grid-column: 1/ span 2;
+    grid-column: 1;
     grid-row: 2;
 }
 
 .projectInfo,
-.assetDisplay,
 .roles,
 .picDisplay {
     box-sizing: border-box;
@@ -49,7 +43,7 @@
     top: 0;
     width: 100%;
     overflow: hidden;
-    border: 2px solid #000000;
+    border: var(--border);
     box-sizing: border-box;
 }
 
@@ -61,18 +55,24 @@
 }
 
 .roles {
-    grid-column: 3;
+    grid-column: 2;
     grid-row: 1/ span 2;
     padding: 0 0 0 1vw;
     box-sizing: border-box;
 
 }
 
-.roles p + p{
-    background-color: var(--secondary-color);
+.roles p+p {
+    background-color: var(--primary-color);
     width: fit-content;
     color: var(--light-color);
 }
+
+body[data-theme="light"] .roles p+p {
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+}
+
 .roles p {
     background-color: transparent;
 
@@ -86,26 +86,23 @@
     height: fit-content;
     width: 100%;
     box-sizing: border-box;
-    --x: 50%;
-    --y: 50%;
-    border-radius: 10px;
     position: relative;
-
+    padding: var(--container-padding);
     z-index: 1;
-    background:
-        radial-gradient(circle at var(--x) var(--y),
-            var(--accent-color),
-            transparent 500px),
-        var(--primary-color);
+}
+
+body[data-theme="light"] .container {
+
+    background: var(--primary-color);
 }
 
 .container {
     height: fit-content;
     width: 100%;
-    border: 10px ridge var(--secondary-color);
+    border: var(--border);
     box-sizing: border-box;
 
-    border-radius: 10px;
+    background: var(--secondary-color);
     position: relative;
     z-index: 1;
 
@@ -113,26 +110,28 @@
 
 @media screen and (min-width: 340px) and (max-width: 500px) {
     .projectTitle {
-
         font-size: 5vw;
+        text-align: center;
     }
+
     .projectDetails {
-    grid-template-columns: fit-content auto ;
-    grid-template-rows: fit-content fit-content fit-content;
-    gap: 1vh;
-}
+        grid-template-columns: auto;
+        grid-template-rows: fit-content fit-content fit-content;
+        gap: 1vh;
+    }
+
     .roles {
-        grid-column: 1 / span 2;
-    grid-row: 3;
-}
+        grid-row: 3;
+        grid-column: 1;
+    }
+
     .fullDescription {
-        grid-column: 1 / span 2;
-    grid-row: 2;
+        grid-row: 2;
 
     }
+
     .projectTitle {
-        grid-column: 2;
-    grid-row: 1;
+        grid-row: 1;
 
     }
 

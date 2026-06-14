@@ -1,0 +1,135 @@
+.layout {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: space-between;
+    box-shadow: inset 0 0 0 500px #12851864;
+    border: var(--border);
+    font-size: 12px;
+    height: 40vh;
+}
+
+
+
+.viewBtn {
+    text-decoration: none;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    border: var(--border);
+    transition: background-color 0.5s ease;
+
+}
+
+.viewBtn:hover {
+    background-color: var(--background-color2);
+}
+
+.top {
+    display: flex;
+    flex: 1;
+
+}
+
+.right {
+    padding: 10px;
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: auto 5vh;
+
+}
+
+.info {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.info span {
+    font-size: 3vh;
+}
+
+.buttons {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    grid-row: 1;
+    justify-content: space-between;
+}
+
+.tags {
+    grid-column: 1/ span 2;
+    grid-row: 2;
+    display: flex;
+    gap: 1vw;
+    align-items: center;
+}
+
+.tag {
+    background: var(--accent-color);
+    height: 80%;
+    align-content: center;
+    padding: 0px 1vw;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+.tag:hover{
+    border: 2px solid rgba(255, 117, 243, 0.35);
+    box-sizing: border-box;
+}
+.tag::before {
+    content: "";
+
+    position: absolute;
+    top: -5%;
+
+    width: 30%;
+    height: 120%;
+
+    background: rgba(255, 117, 243, 0.35);
+
+    clip-path: polygon(0 0,
+            50% 0,
+            100% 100%,
+            50% 100%);
+
+    transform: translateX(-220%);
+    pointer-events: none;
+
+}
+
+.tag:hover::before {
+    animation: shine 0.8s ease-out forwards;
+}
+
+@keyframes shine {
+    from {
+        transform: translateX(-250%);
+    }
+
+    to {
+        transform: translateX(600%);
+    }
+}
+
+
+
+.link {
+    text-align: center;
+    border: var(--border);
+    padding: 10px 0px;
+    background-color: #ffffff;
+}
+
+.link:hover {
+    background-color: var(--secondary-color)
+}
+
+.description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

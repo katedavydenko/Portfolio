@@ -6,7 +6,8 @@ import { assets } from "../../../data/assets";
 // DATA
 const initialItems = galleryData.items.map(item => ({
   ...item,
-  url: assets[item.image]
+  url: assets[item.image],
+  isVideo: assets[item.image]?.endsWith(".mp4")
 }));
 
 
@@ -41,7 +42,9 @@ export default function Gallery() {
 
   // LIGHTBOX (ID based — FIXED)
   const [activeId, setActiveId] = useState(null);
-  const [openPuzzle, setOpenPuzzle] = useState(true);
+  const [openPuzzle, setOpenPuzzle] = useState(
+    window.innerWidth > 950
+  );
   const [collectedItems, setCollectedItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const openImage = (id) => {
@@ -63,7 +66,12 @@ export default function Gallery() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 950);
+      const isMobile = window.innerWidth <= 950;
+
+      setIsSmallScreen(isMobile);
+
+      // Auto-open on desktop, auto-close on mobile
+      setOpenPuzzle(!isMobile);
     };
 
     window.addEventListener("resize", handleResize);
@@ -177,34 +185,53 @@ export default function Gallery() {
 
     setSelectedItem(null);
   };
+  const activeItem = gridItems.find(
+    item => item.id === activeId
+  );
 
   return (
     <div className={styles.pageLayout}>
       <div className={styles.gallery}>
         <div className={styles.galleryGrid}>
           {gridItems.map((img) => (
-            <img
-              key={img.id}
-              src={img.url}
-              alt={img.alt}
-              loading="lazy"
-              onClick={() => {
-                if (img.type === "movable") {
-                  if (isSmallScreen) {
-                    collectItem(img);
+            img.isVideo ? (
+              <div className={styles.videoWrapper}>
+                <video
+                  key={img.id}
+                  className={styles.galleryVideo}
+                  preload="metadata"
+                  muted
+                  playsInline
+                  onClick={() => openImage(img.id)}
+                >
+                  <source src={img.url} type="video/mp4" />
+                </video>
+              </div>
+            ) : (
+              <img
+                key={img.id}
+                src={img.url}
+                alt={img.alt}
+                loading="lazy"
+                onClick={() => {
+                  if (img.type === "movable") {
+                    if (isSmallScreen) {
+                      collectItem(img);
+                    }
+                    return;
                   }
-                  return;
+
+                  openImage(img.id);
+                }}
+                draggable={img.type === "movable"}
+                onDragStart={(e) => onDragStart(e, img)}
+                className={
+                  img.type === "movable"
+                    ? styles.movable
+                    : styles.galleryImage
                 }
-                openImage(img.id);
-              }}
-              draggable={img.type === "movable"}
-              onDragStart={(e) => onDragStart(e, img)}
-              className={
-                img.type === "movable"
-                  ? styles.movable
-                  : styles.galleryImage
-              }
-            />
+              />
+            )
           ))}
         </div>
         {/* LIGHTBOX */}
@@ -221,11 +248,23 @@ export default function Gallery() {
               ‹
             </button>
 
-            <img
-              src={gridItems.find((i) => i.id === activeId)?.url}
-              className={styles.lightboxImg}
-              onClick={(e) => e.stopPropagation()}
-            />
+            {activeItem?.isVideo ? (
+              <video
+                className={styles.lightboxVideo}
+                controls
+                autoPlay
+                playsInline
+                onClick={(e) => e.stopPropagation()}
+              >
+                <source src={activeItem.url} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                src={activeItem?.url}
+                className={styles.lightboxImg}
+                onClick={(e) => e.stopPropagation()}
+              />
+            )}
 
             <button
               className={styles.right}
@@ -268,7 +307,7 @@ export default function Gallery() {
                 muted
                 playsInline
               >
-                <source src={assets.bgVideo} type="video/mp4" />
+                <source src={assets.bgVideo} />
               </video>
             )}
             <div

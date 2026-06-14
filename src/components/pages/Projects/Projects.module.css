@@ -2,40 +2,105 @@
     display: grid;
     gap: 1vh;
     grid-template-columns: auto auto;
+    padding: calc(var(--container-padding) / 2);
+    background-color: var(--shadow-color);
 
 }
 
-.layout {
-    padding: 2vh 2vw;
-    display: flex;
-    flex-direction: column;
-    gap: 1vh;
-
+.container {
+    padding: var(--container-padding);
 }
 
 .filters {
     display: flex;
     gap: 1vw;
-    margin: 2vh 0;
+    padding: calc(var(--container-padding) / 2);
+    background-color: var(--shadow-color);
+   
+    overflow-x: scroll;
+}
+.filters::-webkit-scrollbar {
+    display: none;
 }
 
 .tag {
 
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    padding: 20px;
-    background-color: var(--secondary-color);
-    border-radius: 50px;
+    width: 10vh;
+    height: 10vh;
+    padding: 1vh;
+    box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    border: var(--border);
+    white-space: nowrap;
+    transition: all ease;
+    align-content: center;
+    text-align: center;
+    font-family: var(--font-family-secondary);
+
+
 
 }
 
-.active {
-    background-color: var(--secondary-color2);
-    cursor: pointer;
+.tagDefault {
+    background-color: var(--secondary-color);
 
-    padding: 2vw;
-    border-radius: 0;
-    
+}
+
+.tagActive {
+    background-color: var(--background-color);
+}
+
+.tag span {
+    display: inline-block;
+    padding-right: 100%;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    align-self: center;
+}
+
+.tagActive span {
+    display: inline-block;
+
+    animation: marquee 2s linear infinite;
+    text-overflow: unset;
+    overflow: visible;
+
+}
+
+.tagDefault:hover span {
+    width: max-content;
+    animation: revealText 2s linear forwards;
+    text-overflow: unset;
+    overflow: visible;
+}
+
+.tagActive:last-child {
+    animation-delay: 1s;
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes revealText {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
 }
 
 @media screen and (min-width: 340px) and (max-width: 500px) {

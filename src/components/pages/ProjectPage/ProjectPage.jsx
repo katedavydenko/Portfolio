@@ -10,16 +10,7 @@ export default function ProjectPage() {
   const project = projects.find(p => p.id === id);
   const buttonRef = useRef(null);
 
-  const handleMove = (e) => {
-    const button = buttonRef.current;
 
-    if (!button) return;
-
-    const { x, y } = button.getBoundingClientRect();
-
-    button.style.setProperty("--x", `${e.clientX - x}px`);
-    button.style.setProperty("--y", `${e.clientY - y}px`);
-  };
   const imageRef = useRef(null);
   const [accentColor, setAccentColor] = useState("rgb(57,132,255)");
   const paletteRef = useRef(null);
@@ -63,7 +54,7 @@ export default function ProjectPage() {
     }
   }, [project]);
   return (
-    <div ref={buttonRef} onMouseMove={handleMove} className={styles.projectPageLayout} style={{
+    <div ref={buttonRef} className={styles.projectPageLayout} style={{
       "--primary-color": palette.primary,
       "--secondary-color": palette.secondary,
       "--accent-color": palette.accent,
@@ -81,16 +72,6 @@ export default function ProjectPage() {
 
 
         <div className={styles.projectDetails}>
-          <div className={styles.assetDisplay}>
-            <img
-              key={project.id}
-              src={project.assets}
-              alt={`asset-${project.id}`}
-              className={styles.assetImage}
-            />
-
-          </div>
-
           <div className={styles.projectTitle}>{project.title}</div>
           <div className={styles.fullDescription}>{project.fullDescription}</div>
 

@@ -12,14 +12,18 @@ export default function Scene() {
     <div className={styles.layout}>
 
       <div className={styles.mainContent}>
+        <div className={styles.idContainer}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 70 }}>
+            <ambientLight intensity={1} />
+            <LenticularPlane />
+            <OrbitControls />
+          </Canvas>
+        </div>
 
-        <Canvas camera={{ position: [0, 0, 5], fov: 70 }}>
-          <ambientLight intensity={1} />
-          <LenticularPlane />
-          <OrbitControls />
-        </Canvas>
         <div className={styles.right}>
-          <RadarChart />
+          <div className={styles.chartContainer}>
+            <RadarChart />
+          </div>
           <div className={styles.educationBlock}>
             <p>Education</p>
 

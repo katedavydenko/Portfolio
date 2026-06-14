@@ -1,5 +1,5 @@
 import projects from "../../../data/projects.js";
-import Post from "../../../components/ProjectPost/ProjectPost.jsx";
+import Post from "../../../components/ProjectCard/ProjectCard.jsx";
 import styles from "./Projects.module.css";
 import { useState } from "react";
 
@@ -21,20 +21,20 @@ export default function Projects() {
             );
 
     return (
-        <>
+        <div className={styles.container}>
             <div className={styles.filters}>
                 {tags.map(tag => (
-                    <button
-                        className={
-                            selectedTag === tag
-                                ? styles.active
-                                : styles.tag
-                        }
+                    <div
+                        className={`${styles.tag} ${selectedTag === tag
+                                ? styles.tagActive
+                                : styles.tagDefault
+                            }`}
                         key={tag}
                         onClick={() => setSelectedTag(tag)}
                     >
-                        {tag}
-                    </button>
+                            <span>{tag}</span>
+                            <span>{tag}</span>
+                    </div>
                 ))}
             </div>
             <div className={styles.feed}>
@@ -50,6 +50,6 @@ export default function Projects() {
                     />
                 ))}
             </div>
-        </>
+        </div>
     );
 }
