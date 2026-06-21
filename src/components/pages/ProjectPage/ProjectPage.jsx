@@ -21,6 +21,7 @@ export default function ProjectPage() {
     light: "rgb(240,240,240)",
     dark: "rgb(40,40,40)",
   });
+  
   useEffect(() => {
     const img = paletteRef.current;
 
@@ -70,11 +71,14 @@ export default function ProjectPage() {
       />
       <div className={styles.container}>
 
-
         <div className={styles.projectDetails}>
           <div className={styles.projectTitle}>{project.title}</div>
           <div className={styles.fullDescription}>{project.fullDescription}</div>
-
+          <div className={styles.link}>
+            <div>
+              <a href={project.link}>VISIT</a>
+            </div>
+          </div>
           <div className={styles.roles}>
             <p>Roles:</p>
             {project.roles.map(feature => (

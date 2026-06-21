@@ -7,6 +7,8 @@ const HomeBackground = ({ currentIndex }) => {
     const [theme, setTheme] = useLocalStorage("theme", "dark");
 
     useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
@@ -53,7 +55,7 @@ const HomeBackground = ({ currentIndex }) => {
             document.startViewTransition(() => {
                 setTheme(prev => (prev === "light" ? "dark" : "light"));
             });
-        } 
+        }
     };
 
     return (

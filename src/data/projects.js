@@ -5,13 +5,13 @@ const projects = [
         title: "HARRIET THE WITCH",
 
         shortDescription:
-            "A dark humor game where an alien consumes the universe.",
+            "A witch's brief journey into the forest to uncover a strange occurrence",
 
         fullDescription:
-            "A progression-based game focused on scale, destruction, and absurdity.",
+            "This was my first game development project. In the game, you play as a witch who must investigate the mysterious appearance of slimy creatures in the forest. Your goal is to uncover their origin and stop them from spreading. The game features a pixel art visual styleThis was my first game development project. In the game, you play as a witch who must investigate the mysterious appearance of slimy creatures in the forest. Explore the environment, solve mini-puzzles, uncover the source of the infestation, and stop the creatures from spreading. The game features a pixel art art style",
 
         thumbnail: "/Portfolio/projects_assets/thumbnails/htw.png",
-        paletteImage: "/Portfolio/projects_assets/banners/htw_banner.png",
+        paletteImage: "/Portfolio/projects_assets/thumbnails/htw.png",
         banner: "/Portfolio/projects_assets/banners/htw_banner.png",
 
         tech_stack: [
@@ -32,7 +32,10 @@ const projects = [
             "/Portfolio/projects_assets/harriet_the_witch/pics/pic1.png",
             "/Portfolio/projects_assets/harriet_the_witch/pics/pic2.png",
             "/Portfolio/projects_assets/harriet_the_witch/pics/pic3.png",
-            "/Portfolio/projects_assets/harriet_the_witch/pics/pic4.png"
+            "/Portfolio/projects_assets/harriet_the_witch/pics/pic4.png",
+            "/Portfolio/projects_assets/harriet_the_witch/pics/pic5.png",
+            "/Portfolio/projects_assets/harriet_the_witch/pics/pic6.png"
+
         ]
 
 

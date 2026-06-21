@@ -73,17 +73,17 @@ export default function RadarChart() {
 
                 gradient.addColorStop(
                     0,
-                    `rgba(${255 * stop1}, 77, 166, 0.8)`
+                    `rgba(${26 * stop1}, 227, 16, 0.8)`
                 );
 
                 gradient.addColorStop(
                     0.5,
-                    `rgba(173, ${120 + 100 * stop2}, 255, 0.8)`
+                    `rgba(28, ${132 + 100 * stop2}, 255, 0.8)`
                 );
 
                 gradient.addColorStop(
                     1,
-                    `rgba(255,255,255, 0.8)`
+                    `rgb(255, 244, 41)`
                 );
 
                 return gradient;

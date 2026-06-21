@@ -1,25 +1,119 @@
 .layout {
-  overflow: hidden;
   width: 100%;
   height: 100vh;
+  background: url('/home_assets/about_bg_n.png') center/cover;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+
+
 }
 
-.mainContent {
+body[data-theme="light"] .layout {
+  background: url('/home_assets/about_bg_d.png') center/cover;
+}
 
-  display: flex;
+.flipCard {
+  background-color: transparent;
+
+  width: 80%;
+  aspect-ratio: 1680 /1020;
+  height: auto;
+  perspective: 1000px;
+}
+
+.flipCardInner {
+  position: relative;
   width: 100%;
   height: 100%;
-  justify-content: space-between;
-  box-sizing: border-box;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
 
+.flipCard:hover .flipCardInner {
+  transform: rotateY(180deg);
+}
+
+.flipCardFront,
+.flipCardBack {
+  position: absolute;
+  border: var(--border);
+
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flipCardFront {
+  background-color: var(--white);
+  align-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+.educationBlockLeft {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg); 
+  font-family: var(--font-family-secondary);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
+
+  flex: 0 0 auto;
+}
+
+.educationBlockRight {
+  position: absolute;
+  font-family: "Shadows Into Light Two", cursive;
+  font-weight: 500;
+  transform: rotateZ(344deg);
+  left: 36%;
+  bottom : 20%;
+  width: 60%;
+}
+.educationBlockRight p:nth-child(odd){
+  padding-left: 8px;
+}
+
+
+
+.paperClip {
+  position: absolute;
+  height: 50px;
+  top: -20px;
+}
+
+.back {
+  right: 50px;
+  left: auto;
+}
+
+.front {
+  left: 50px;
+  right: auto;
+}
+
+.flipCardBack img:last-child {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+
+}
+
+
+.flipCardBack {
+  transform: rotateY(180deg);
 }
 
 .canvas {
-  height: 100%;
-  flex: auto;
-  font-family: inherit;
-  flex: 1;
-  width: fit-content;
+  width: 100%;
 }
 
 .left {
@@ -31,51 +125,73 @@
 
 .right {
   width: fit-content;
+  box-sizing: border-box;
+  flex: 0.4;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .chartContainer {
-  width: 30vw;
-}
-
-.educationBlock {
-  height: 40vh;
-  width: 80%;
-  padding: calc(var(--container-padding) / 2);
-
-}
-
-.idContainer {
-  height: 100dvh;
+  width: 100%;
   flex: 1;
 }
 
-@media screen and (min-width: 340px) and (max-width: 1200px) {
-  .mainContent {
-    flex-direction: column;
-  }
+.educationBlock {
+  padding: 5vw;
+  box-sizing: border-box;
+  flex: 1;
+  height: fit-content;
+  width: 100%;
+}
 
-  .educationBlock {
-    height: auto;
-    width: auto;
-    flex: 1;
+.idContainer {
+  box-sizing: border-box;
+  flex: 0.6;
+}
+
+@media screen and (min-width: 340px) and (max-width: 1200px) {
+  .layout {
+    flex-direction: column;
+    align-items: center;
+
   }
 
   .idContainer {
-    height: 60vh;
+    flex: 1;
+    height: 50vh;
+    width: 100%;
   }
 
   .right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    flex-direction: row;
+    flex: 1;
+    width: 100%;
+    height: 45vh;
+    box-sizing: border-box;
 
-  .canvas {
-    height: 60%;
   }
 
   .chartContainer {
-    width: 90vw;
-    align-items: center;
+    height: 100%;
+    width: auto;
+  }
+
+
+}
+
+@media screen and (min-width: 340px) and (max-width: 900px) {
+  .right {
+    flex-direction: column;
+  }
+
+  .layout {
+    background: none;
+  }
+
+  body[data-theme="light"] .layout {
+    background: none;
   }
 }

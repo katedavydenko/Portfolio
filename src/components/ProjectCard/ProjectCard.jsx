@@ -9,12 +9,8 @@ const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
 
   return (
     <div className={styles.layout} style={{
-        background: `url(${thumbnail}) center/cover no-repeat`
-      }}
-
-    >
-
-
+      background: `url(${thumbnail}) center/cover no-repeat`
+    }}>
       <div className={styles.right}>
         <div className={styles.info}>
           <span className={styles.title}>{title}</span>
@@ -22,11 +18,10 @@ const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
 
         </div>
         <div className={styles.buttons}>
-        <a href={link} className={styles.link}>VISIT
-        </a>
+          <a href={link} className={styles.link}>VISIT</a>
 
-        <Link to={`/projects/${id}`} className={styles.viewBtn}>VIEW PROJECT
-        </Link>
+          <Link to={`/projects/${id}`} className={styles.viewBtn}>VIEW PROJECT
+          </Link>
         </div>
         <div className={styles.tags}>
           {tech_stack?.map((tech) => (

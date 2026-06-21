@@ -43,8 +43,8 @@ import item2 from "/gallery_assets/puzzle_assets/it2.png";
 import item3 from "/gallery_assets/puzzle_assets/it3.png";
 import item4 from "/gallery_assets/puzzle_assets/it4.png";
 
-import bgVideo from "/gallery_assets/puzzle_assets/tr.mp4";
-import puzzleBg from "/gallery_assets/puzzle_assets/bg1.gif";
+import bgVideo_n from "/gallery_assets/puzzle_assets/tr.mp4";
+import bgVideo_d from "/gallery_assets/puzzle_assets/tr_l.mp4";
 
 export const assets = {
   img1,
@@ -92,6 +92,6 @@ export const assets = {
   item3,
   item4,
 
-  bgVideo,
-  puzzleBg,
+  bgVideo_n,
+  bgVideo_d
 };

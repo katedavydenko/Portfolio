@@ -13,7 +13,7 @@ export default function LenticularPlane({
   const texture1 = useMemo(
     () =>
       new THREE.TextureLoader().load(
-        `${import.meta.env.BASE_URL}/about_assets/IlyaRozey.png`
+        `${import.meta.env.BASE_URL}/about_assets/front1.webp`
       ),
     []
   );
@@ -21,7 +21,7 @@ export default function LenticularPlane({
   const texture2 = useMemo(
     () =>
       new THREE.TextureLoader().load(
-        `${import.meta.env.BASE_URL}/about_assets/IlyaRozey2.png`
+        `${import.meta.env.BASE_URL}/about_assets/front2.webp`
       ),
     []
   );
@@ -29,7 +29,7 @@ export default function LenticularPlane({
   const texture3 = useMemo(
     () =>
       new THREE.TextureLoader().load(
-        `${import.meta.env.BASE_URL}/about_assets/IlyaRozey3.png`
+        `${import.meta.env.BASE_URL}/about_assets/back.webp`
       ),
     []
   );

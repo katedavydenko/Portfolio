@@ -1,15 +1,14 @@
-
 ::view-transition-new(root) {
-    animation: circle-in 2000ms;
+    animation: circle-in 3000ms;
 }
 
 ::view-transition-old(root) {
-    animation-delay: 1000ms;
+    animation-delay: 1500ms;
 }
 
 @keyframes circle-in {
     from {
-        clip-path: circle(0% at 32% 10%);
+        clip-path: circle(0% at 32% 13%);
     }
 
     to {
@@ -44,7 +43,7 @@
 }
 
 .moon {
-    background: url('/home_assets/l1m.png') center/cover no-repeat;
+    background: url('/home_assets/l1m.webp') center/cover no-repeat;
     height: 20vh;
     width: 20vh;
     z-index: 10;
@@ -58,8 +57,8 @@
     overflow: visible;
     isolation: isolate;
 
-    transform: translate(calc(var(--x) * 20px), calc(var(--y) * 20px));
-    box-shadow: 0px 0px 50px 7px var(--secondary-color);
+    transform: translate(calc(var(--x) * 5px), calc(var(--y) * 5px));
+    box-shadow: 0px 0px 50px 7px var(--white);
 }
 
 .bg {
@@ -71,30 +70,30 @@
 .stars {
     background: url('/home_assets/stars.gif') center/cover;
     z-index: 2;
-    opacity: 0.7;
-    transform: translate(calc(var(--x) * 10px), calc(var(--y) * 10px));
+    transform: translate(calc(var(--x) * 20px), calc(var(--y) * 20px));
 }
 
 body[data-theme="light"] .stars {
-    background: none;
+    background: url('/home_assets/clouds_d.webp') center/cover;
+    opacity: 1;
 }
 
 
 .clouds {
     z-index: 4;
     opacity: 0.5;
-    background: url('/home_assets/clouds.png') center/cover no-repeat;
-    transform: translate(calc(var(--x) * 15px), calc(var(--y) * 15px));
+    background: url('/home_assets/clouds.webp') center/cover no-repeat;
+    transform: translate(calc(var(--x) * 10px), calc(var(--y) * 10px));
 }
 
 .layer2 {
-    background: url('/home_assets/l2.png') center/cover no-repeat;
+    background: url('/home_assets/l2.webp') center/cover no-repeat;
     z-index: 5;
     transform: translate(calc(var(--x) * 10px), calc(var(--y) * 10px));
 }
 
 body[data-theme="light"] .layer2 {
-    background: url('/home_assets/l2l.png') center/cover no-repeat;
+    background: url('/home_assets/l2l.webp') center/cover no-repeat;
 }
 
 
@@ -111,7 +110,7 @@ body[data-theme="light"] .layer3 {
 
 
 .layer4 {
-    background: url('/home_assets/l4.png') center/cover no-repeat;
+    background: url('/home_assets/l4.webp') center/cover no-repeat;
     z-index: 7;
     bottom: -10%;
     left: -5%;
@@ -120,79 +119,84 @@ body[data-theme="light"] .layer3 {
 }
 
 body[data-theme="light"] .layer4 {
-    background: url('/home_assets/l4l.png') center/cover no-repeat;
+    background: url('/home_assets/l4l.webp') center/cover no-repeat;
 }
 
 @media screen and (min-width: 340px) and (max-width: 500px) {
     .bg {
-        background: url('/home_assets/bgs.png') center/cover no-repeat;
+        background: url('/home_assets/bgs.webp') center/cover no-repeat;
         z-index: 1;
         transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px));
     }
 
     body[data-theme="light"] .bg {
-        background: url('/home_assets/bgs.png') center/cover no-repeat;
+        background: url('/home_assets/bgs_d.webp') center/cover no-repeat;
     }
 
     .moon {
-        display: none;
+        background: url('/home_assets/sm_moon.webp') center/cover no-repeat;
+        box-shadow: none;
+        left: 46%;
+        top: 85%;
+        height: 5vh;
+        width: 5vh;
     }
 
     .layer1 {
-        background: url('/home_assets/ls1.png') center/cover no-repeat;
+        background: url('/home_assets/sm_bg_n.gif') center/cover no-repeat;
         z-index: 2;
         transform: translate(calc(var(--x) * 4px), calc(var(--y) * 4px));
     }
 
     body[data-theme="light"] .layer1 {
-        background: url('/home_assets/ls1.png') center/cover no-repeat;
+        background: url('/home_assets/ls1.webp') center/cover no-repeat;
     }
 
     .clouds {
         /*apples*/
-        background: url('/home_assets/cloudss.png') center/cover no-repeat;
+        background: url('/home_assets/cloudss.webp') center/cover no-repeat;
         z-index: 3;
         transform: translate(calc(var(--x) * 5px), calc(var(--y) * 5px));
         opacity: 1;
     }
 
     body[data-theme="light"] .clouds {
-        background: url('/home_assets/cloudss.png') center/cover no-repeat;
+        display: none;
     }
 
     .layer2 {
-        background: url('/home_assets/ls2.png') center/cover no-repeat;
+        background: url('/home_assets/ls2.webp') center/cover no-repeat;
         z-index: 4;
         transform: translate(calc(var(--x) * 4px), calc(var(--y) * 4px));
     }
 
     body[data-theme="light"] .layer2 {
-        background: url('/home_assets/ls2.png') center/cover no-repeat;
+        background: url('/home_assets/ls2_d.webp') center/cover no-repeat;
     }
 
     .stars {
         /*grass*/
-        background: url('/home_assets/starss.png') center/cover;
+        background: url('/home_assets/starss.webp') center/cover;
         z-index: 5;
         transform: translate(calc(var(--x) * 6px), calc(var(--y) * 6px));
     }
 
     body[data-theme="light"] .stars {
-        background: url('/home_assets/starss.png') center/cover;
+        background: url('/home_assets/starss_d.webp') center/cover;
     }
 
     .layer3 {
-        background: url('/home_assets/ls3.png') center/cover no-repeat;
+        background: url('/home_assets/ls3.webp') center/cover no-repeat;
         z-index: 6;
         transform: translate(calc(var(--x) * 7px), calc(var(--y) * 7px)) scale(1.1);
     }
 
     body[data-theme="light"] .layer3 {
-        background: url('/home_assets/ls3.png') center/cover no-repeat;
+        background: url('/home_assets/ls3_d.webp') center/cover no-repeat;
     }
 
     .layer4 {
-        background: url('/home_assets/ls4.png') center/cover no-repeat;
+        background: url('/home_assets/ls4.webp') center/cover no-repeat;
         z-index: 7;
         transform: translate(calc(var(--x) * 7px), calc(var(--y) * 7px)) scale(1.1);
         bottom: 0;
@@ -200,14 +204,8 @@ body[data-theme="light"] .layer4 {
     }
 
     body[data-theme="light"] .layer4 {
-        background: url('/home_assets/ls4.png') center/cover no-repeat;
+        background: url('/home_assets/ls4_d.webp') center/cover no-repeat;
     }
-
-    body[data-theme="light"] .moon {
-        display: none;
-    }
-
-
 
     .sidebar {
         width: 10vw;
@@ -227,6 +225,16 @@ body[data-theme="light"] .layer4 {
     .container {
         flex-direction: column;
         overflow: hidden;
+    }
+
+    @keyframes circle-in {
+        from {
+            clip-path: circle(0% at 47% 86%);
+        }
+
+        to {
+            clip-path: circle(200% at 50% 0%);
+        }
     }
 
 

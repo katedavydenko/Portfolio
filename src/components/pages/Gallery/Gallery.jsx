@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./Gallery.module.css";
 import galleryData from "../../../data/galleryData.js";
 import { assets } from "../../../data/assets";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 
 // DATA
 const initialItems = galleryData.items.map(item => ({
@@ -32,15 +33,11 @@ const randomizeMovablePositions = (items) => {
   return result;
 };
 
-
-
 export default function Gallery() {
   const [gridItems, setGridItems] = useState(() =>
     randomizeMovablePositions(initialItems)
   );
-  ;
 
-  // LIGHTBOX (ID based — FIXED)
   const [activeId, setActiveId] = useState(null);
   const [openPuzzle, setOpenPuzzle] = useState(
     window.innerWidth > 950
@@ -188,16 +185,46 @@ export default function Gallery() {
   const activeItem = gridItems.find(
     item => item.id === activeId
   );
+  const [hidden, setHidden] = useState(false);
+  const [hidden2, setHidden2] = useState(false);
+  const [icon, setIcon] = useState(":i)");
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIcon(prev => (prev === ":i)" ? ":i0" : ":i)"));
+    }, 300);
+
+    return () => clearInterval(id);
+  }, []);
+
+  const [bgVideo, setBgVideo] = useState(assets.bgVideo_d);
+  const [theme] = useLocalStorage("theme", "light");
+
+  useEffect(() => {
+    if (theme === "dark") {
+      setBgVideo(assets.bgVideo_n);
+    } else {
+      setBgVideo(assets.bgVideo_d);
+    }
+  }, [theme]);
 
   return (
     <div className={styles.pageLayout}>
+      <div className={styles.infoSmallScreen}
+        style={{ display: hidden ? "none" : "" }}>
+        <div className={styles.infoIcon}> {icon}</div>
+        <p>you can find puzzle pieces in the gallery, click to collect them, and complete the puzzle at the bottom of the gallery
+        </p>
+        <div className={styles.crossBtn} onClick={() => setHidden(true)}>&#9747;</div>
+
+
+      </div>
       <div className={styles.gallery}>
         <div className={styles.galleryGrid}>
           {gridItems.map((img) => (
             img.isVideo ? (
-              <div className={styles.videoWrapper}>
+              <div key={img.id} className={styles.videoWrapper}>
                 <video
-                  key={img.id}
                   className={styles.galleryVideo}
                   preload="metadata"
                   muted
@@ -212,7 +239,6 @@ export default function Gallery() {
                 key={img.id}
                 src={img.url}
                 alt={img.alt}
-                loading="lazy"
                 onClick={() => {
                   if (img.type === "movable") {
                     if (isSmallScreen) {
@@ -245,7 +271,7 @@ export default function Gallery() {
                 prevImage();
               }}
             >
-              ‹
+              &#9668;
             </button>
 
             {activeItem?.isVideo ? (
@@ -273,16 +299,23 @@ export default function Gallery() {
                 nextImage();
               }}
             >
-              ›
+              &#9658;
             </button>
 
           </div>
         )}
       </div>
       <div className={styles.sidebar}>
+        <div className={styles.info} ></div>
         <div className={styles.revealBtn} onClick={() => setOpenPuzzle(prev => !prev)}>{openPuzzle ? <div className={styles.revealBtnText}><div>CLOSE PUZZLE </div> <div>&#8675;</div></div> : <div className={styles.revealBtnText}> <div>OPEN PUZZLE</div> <div>&#8673;</div></div>}</div>
 
         {openPuzzle && <>
+          <div className={styles.infoSmallScreenPuzzle}
+            style={{ display: hidden2 ? "none" : "" }}>
+            <p>click on a bone to select it, then click its correct location to place it</p>
+            <div className={styles.crossBtn} onClick={() => setHidden2(true)}>&#9747;</div>
+
+          </div>
           <div className={styles.collectedItemsWrapper}>
             <div className={styles.collectedItems}>
               {collectedItems.map(item => (
@@ -307,7 +340,7 @@ export default function Gallery() {
                 muted
                 playsInline
               >
-                <source src={assets.bgVideo} />
+                <source src={bgVideo} />
               </video>
             )}
             <div

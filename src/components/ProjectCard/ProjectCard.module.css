@@ -1,15 +1,35 @@
+
+
 .layout {
     position: relative;
     overflow: hidden;
 
     display: flex;
     justify-content: space-between;
-    box-shadow: inset 0 0 0 500px #12851864;
+
     border: var(--border);
     font-size: 12px;
+    color: var(--white);
     height: 40vh;
 }
 
+.layout::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(58,22,53, 0.8);
+    transition: opacity 2s cubic-bezier(0.22,1,0.36,1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.layout:hover::before {
+    opacity: 0;
+}
+
+body[data-theme = "light"] .layout::before{
+    background: rgba(43, 35, 119, 0.8);
+}
 
 
 .viewBtn {
@@ -17,13 +37,21 @@
     padding: 20px;
     background-color: rgb(255, 255, 255);
     text-align: center;
+    cursor: pointer;
     border: var(--border);
     transition: background-color 0.5s ease;
+    color: var(--background-color2);
+    transition:
+        background-color 1s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1s cubic-bezier(0.22, 1, 0.36, 1);
 
 }
 
 .viewBtn:hover {
     background-color: var(--background-color2);
+    transform: rotate(3deg);
+    color: var(--white);
+    
 }
 
 .top {
@@ -38,6 +66,7 @@
     flex: 1;
     grid-template-columns: repeat(2, auto);
     grid-template-rows: auto 5vh;
+    z-index: 3;
 
 }
 
@@ -56,6 +85,10 @@
     flex-direction: column;
     grid-row: 1;
     justify-content: space-between;
+    margin-bottom: 2vh;
+    width: fit-content;
+    color: #000000;
+    margin-left: 2vw;
 }
 
 .tags {
@@ -64,6 +97,10 @@
     display: flex;
     gap: 1vw;
     align-items: center;
+    font-family: var(--font-family-secondary);
+    font-weight: bold;
+    color: var(--white);
+
 }
 
 .tag {
@@ -74,11 +111,14 @@
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
+    border: 2px solid rgba(255, 117, 244, 0);
 }
-.tag:hover{
+
+.tag:hover {
     border: 2px solid rgba(255, 117, 243, 0.35);
     box-sizing: border-box;
 }
+
 .tag::before {
     content: "";
 
@@ -121,10 +161,14 @@
     border: var(--border);
     padding: 10px 0px;
     background-color: #ffffff;
+    color: var(--secondary-color);
+    transition:
+        background-color 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .link:hover {
-    background-color: var(--secondary-color)
+    background-color: var(--secondary-color);
+    color: var(--white);
 }
 
 .description {
