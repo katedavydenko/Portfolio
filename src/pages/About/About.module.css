@@ -57,7 +57,7 @@ body[data-theme="light"] .layout {
 
 .educationBlockLeft {
   writing-mode: vertical-rl;
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
   font-family: var(--font-family-secondary);
 
   display: flex;
@@ -75,14 +75,13 @@ body[data-theme="light"] .layout {
   font-weight: 500;
   transform: rotateZ(344deg);
   left: 36%;
-  bottom : 20%;
+  bottom: 20%;
   width: 60%;
 }
-.educationBlockRight p:nth-child(odd){
+
+.educationBlockRight p:nth-child(odd) {
   padding-left: 8px;
 }
-
-
 
 .paperClip {
   position: absolute;
@@ -178,7 +177,8 @@ body[data-theme="light"] .layout {
     height: 100%;
     width: auto;
   }
-  .educationBlock{
+
+  .educationBlock {
     padding: 0;
   }
 
@@ -192,6 +192,10 @@ body[data-theme="light"] .layout {
 
   .layout {
     background: none;
+  }
+
+  .educationBlock {
+    padding: 5vw;
   }
 
   body[data-theme="light"] .layout {

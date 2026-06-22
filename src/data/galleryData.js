@@ -11,7 +11,7 @@ const galleryData = {
             "alt": "img2"
         },
         {
-            "id": 3,
+            "id": "3",
             "image": "img3",
             "alt": "img3"
         },

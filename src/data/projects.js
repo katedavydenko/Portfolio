@@ -14,7 +14,7 @@ const projects = [
         paletteImage: "/Portfolio/projects_assets/thumbnails/htw.png",
         banner: "/Portfolio/projects_assets/banners/htw_banner.png",
 
-        tech_stack: [
+        techStack: [
             "Godot 4",
             "GDScript",
             "Krita"
@@ -57,7 +57,7 @@ const projects = [
 
         banner: "/Portfolio/projects_assets/banners/htw_banner.png",
 
-        tech_stack: [
+        techStack: [
             "Krita"
         ],
         roles: ["intro animator", "illustrator"],
@@ -97,7 +97,7 @@ const projects = [
 
         banner: "/Portfolio/projects_assets/banners/htw_banner.png",
 
-        tech_stack: [
+        techStack: [
             "Krita", "CSS"
         ],
         roles: ["animator", "character designer", "logo designer", "UI designer"],

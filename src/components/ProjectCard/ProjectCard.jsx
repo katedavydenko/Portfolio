@@ -1,8 +1,7 @@
 import styles from './ProjectCard.module.css';
 import { Link } from 'react-router-dom';
-import { useState, useRef } from 'react';
 
-const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
+const ProjectCard = ({ id, title, thumbnail, shortDescription, link, techStack }) => {
   return (
     <div className={styles.layout} style={{
       background: `url(${thumbnail}) center/cover no-repeat`
@@ -20,7 +19,7 @@ const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
           </Link>
         </div>
         <div className={styles.tags}>
-          {tech_stack?.map((tech) => (
+          {techStack?.map((tech) => (
             <span key={tech} className={styles.tag}>
               {tech}
             </span>
@@ -31,4 +30,4 @@ const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
   );
 };
 
-export default Post;
+export default ProjectCard;

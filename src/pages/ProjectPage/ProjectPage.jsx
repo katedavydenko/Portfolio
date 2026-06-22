@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import projects from "../../../data/projects.js";
+import projects from "../../data/projects.js";
 import styles from "./ProjectPage.module.css"
 import { useRef, useEffect, useState } from "react";
 import { getPaletteSync } from "colorthief";
@@ -8,11 +8,6 @@ export default function ProjectPage() {
   const { id } = useParams();
 
   const project = projects.find(p => p.id === id);
-  const buttonRef = useRef(null);
-
-
-  const imageRef = useRef(null);
-  const [accentColor, setAccentColor] = useState("rgb(57,132,255)");
   const paletteRef = useRef(null);
   const [palette, setPalette] = useState({
     primary: "rgb(57,132,255)",
@@ -21,7 +16,7 @@ export default function ProjectPage() {
     light: "rgb(240,240,240)",
     dark: "rgb(40,40,40)",
   });
-  
+
   useEffect(() => {
     const img = paletteRef.current;
 
@@ -55,7 +50,7 @@ export default function ProjectPage() {
     }
   }, [project]);
   return (
-    <div ref={buttonRef} className={styles.projectPageLayout} style={{
+    <div className={styles.projectPageLayout} style={{
       "--primary-color": palette.primary,
       "--secondary-color": palette.secondary,
       "--accent-color": palette.accent,
@@ -87,8 +82,6 @@ export default function ProjectPage() {
           </div>
         </div>
 
-
-
         <div className={styles.picDisplay}>
           {project.pics.map((pic, index) => (
             <div
@@ -104,7 +97,6 @@ export default function ProjectPage() {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

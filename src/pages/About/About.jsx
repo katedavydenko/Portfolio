@@ -1,12 +1,11 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import styles from './About.module.css';
-import RadarChart from '../../RadarChart/RadarChart.jsx';
-import LenticularPlane from "../../LenticularPlane/LenticularPlane.jsx";
-import { educationInfo } from "../../../data/aboutData.js";
+import RadarChart from '../../components/RadarChart/RadarChart.jsx';
+import LenticularPlane from "../../components/LenticularPlane/LenticularPlane.jsx";
+import { educationInfo } from "../../data/aboutData.js";
 
 export default function Scene() {
-
 
   return (
     <div className={styles.layout}>

@@ -8,14 +8,13 @@ const HomeBackground = ({ currentIndex }) => {
 
     useEffect(() => {
         document.documentElement.setAttribute("data-theme", theme);
-
         document.body.setAttribute("data-theme", theme);
     }, [theme]);
 
     useEffect(() => {
         const handleMove = (e) => {
             const x =
-                (e.clientX / window.innerWidth - 0.5) * 2;
+                (e.clientX / window.innerWidth - 0.5) * 2; //нормалізація координат (-1, 0, 1)
 
             const y =
                 (e.clientY / window.innerHeight - 0.5) * 2;

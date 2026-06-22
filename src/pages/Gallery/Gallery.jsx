@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Gallery.module.css";
-import galleryData from "../../../data/galleryData.js";
-import { assets } from "../../../data/assets";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+import galleryData from "../../data/galleryData.js";
+import { assets } from "../../data/assets.js";
+import useLocalStorage from "../../hooks/useLocalStorage.js";
 
 // DATA
 const initialItems = galleryData.items.map(item => ({

@@ -1,7 +1,7 @@
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import styles from './MainLayout.module.css';
 import { useState, useEffect } from "react";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const MainLayout = () => {
 

@@ -1,6 +1,6 @@
-import HomeBackground from'../../HomeBackground/HomeBackground';
+import HomeBackground from'../../components/HomeBackground/HomeBackground';
 import { startTransition, ViewTransition, useEffect, useState, useRef } from "react";
-import useLocalStorage from "../../../hooks/useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 

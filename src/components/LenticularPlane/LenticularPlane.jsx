@@ -5,11 +5,7 @@ import * as THREE from "three";
 export default function LenticularPlane({
   width = 5,
   height = 3,
-  radius = 0.3,
 }) {
-  const meshRef = useRef();
-  const { camera } = useThree();
-
   const texture1 = useMemo(
     () =>
       new THREE.TextureLoader().load(
@@ -102,7 +98,7 @@ export default function LenticularPlane({
   );
 
   return (
-    <mesh ref={meshRef}>
+    <mesh>
       <planeGeometry args={[width, height]} />
       <primitive object={material} attach="material" />
     </mesh>

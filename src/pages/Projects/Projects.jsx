@@ -1,5 +1,5 @@
-import projects from "../../../data/projects.js";
-import Post from "../../../components/ProjectCard/ProjectCard.jsx";
+import projects from "../../data/projects.js";
+import ProjectCard from "../../components/ProjectCard/ProjectCard.jsx";
 import styles from "./Projects.module.css";
 import { useState } from "react";
 
@@ -9,7 +9,7 @@ export default function Projects() {
     const tags = [
         "All",
         ...new Set(
-            projects.flatMap(project => project.tech_stack)
+            projects.flatMap(project => project.techStack)
         )
     ];
 
@@ -17,7 +17,7 @@ export default function Projects() {
         selectedTag === "All"
             ? projects
             : projects.filter(project =>
-                project.tech_stack.includes(selectedTag)
+                project.techStack.includes(selectedTag)
             );
 
     return (
@@ -39,14 +39,14 @@ export default function Projects() {
             </div>
             <div className={styles.feed}>
                 {filteredProjects.map((project) => (
-                    <Post
+                    <ProjectCard
                         key={project.id}
                         id={project.id}
                         title={project.title}
                         thumbnail={project.thumbnail}
                         shortDescription={project.shortDescription}
                         link={project.link}
-                        tech_stack={project.tech_stack}
+                        techStack={project.techStack}
                     />
                 ))}
             </div>

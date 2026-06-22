@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import MainLayout from './components/templates/MainLayout/MainLayout';
-import Home from './components/pages/Home/Home';
-import Gallery from './components/pages/Gallery/Gallery';
-import ProjectPage from './components/pages/ProjectPage/ProjectPage';
-import About from './components/pages/About/About'
-import NotFound from './components/pages/NotFound/NotFound';
-import Projects from "./components/pages/Projects/Projects";
+import MainLayout from './layouts/MainLayout/MainLayout.jsx';
+import Home from './pages/Home/Home';
+import Gallery from './pages/Gallery/Gallery';
+import ProjectPage from './pages/ProjectPage/ProjectPage';
+import About from './pages/About/About'
+import NotFound from './pages/NotFound/NotFound';
+import Projects from "./pages/Projects/Projects";
 
 function App() {
 
