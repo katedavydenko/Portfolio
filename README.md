@@ -1,6 +1,6 @@
 ## Architecture
 
-``
+```
 public/                     # Static assets (images, videos)
 ├── about_assets
 ├── gallery_assets
@@ -35,12 +35,12 @@ Page routing is implemented using React Router.
 
 Main components:
 
-- **About** — displays information about the developer.
-- **Projects** — displays a list of completed projects.
-- **ProjectCard** — represents an individual project card.
-- **ProjectPage** — displays detailed information about a selected project.
-- **Gallery** — displays a gallery of images and videos.
-- **HomeBackground** — provides the parallax background effect for the home page.
+- About — displays information about the developer.
+- Projects — displays a list of completed projects.
+- ProjectCard — represents an individual project card.
+- ProjectPage — displays detailed information about a selected project.
+- Gallery — displays a gallery of images and videos.
+- HomeBackground — provides the parallax background effect for the home page.
 
 ## Technologies Used
 
