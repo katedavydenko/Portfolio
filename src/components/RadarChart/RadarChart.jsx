@@ -10,6 +10,7 @@ import {
 import styles from './RadarChart.module.css'
 import { useEffect, useRef } from 'react';
 import { Radar } from 'react-chartjs-2';
+
 const css = getComputedStyle(document.documentElement);
 ChartJS.register(
     RadialLinearScale,

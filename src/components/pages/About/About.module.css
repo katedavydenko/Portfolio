@@ -1,7 +1,7 @@
 .layout {
   width: 100%;
   height: 100vh;
-  background: url('/home_assets/about_bg_n.png') center/cover;
+  background: url('/home_assets/about_bg_n.webp') center/cover;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -11,7 +11,7 @@
 }
 
 body[data-theme="light"] .layout {
-  background: url('/home_assets/about_bg_d.png') center/cover;
+  background: url('/home_assets/about_bg_d.webp') center/cover;
 }
 
 .flipCard {
@@ -177,6 +177,9 @@ body[data-theme="light"] .layout {
   .chartContainer {
     height: 100%;
     width: auto;
+  }
+  .educationBlock{
+    padding: 0;
   }
 
 

@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
 const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
-  const [hovered, setHovered] = useState(false);
-  const videoRef = useRef(null);
-
-
   return (
     <div className={styles.layout} style={{
       background: `url(${thumbnail}) center/cover no-repeat`
@@ -30,10 +26,7 @@ const Post = ({ id, title, thumbnail, shortDescription, link, tech_stack }) => {
             </span>
           ))}
         </div>
-
       </div>
-
-
     </div>
   );
 };
